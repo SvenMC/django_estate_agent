@@ -1,1 +1,1 @@
-import enums
+from .enums import ContractType
