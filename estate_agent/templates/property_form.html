@@ -1,1 +1,16 @@
 <h3>Here is the property_form page!</h3>
+<fieldset>
+    <form>
+        <label for="property_address">Address:</label><br>
+        <input type="text" id="property_address" name="property_address" required><br>
+        <label for="property_desc">Property Description:</label><br>
+        <input type="text" id="property_desc" name="property_desc" required><br>
+        <br>
+        <input type="radio" id="is_rent" name="property_type" value="For rent" required>
+        <label for="is_rent">For rent</label><br>
+        <input type="radio" id="is_sale" name="property_type" value="For sale">
+        <label for="is_sale">For sale</label><br>
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+</fieldset>
