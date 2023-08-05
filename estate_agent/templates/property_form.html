@@ -1,5 +1,5 @@
 <h3>Here is the property_form page!</h3>
-<fieldset>
+<!-- <fieldset>
     <form>
         <label for="property_address">Address:</label><br>
         <input type="text" id="property_address" name="property_address" required><br>
@@ -13,4 +13,15 @@
         <br>
         <input type="submit" value="Submit">
     </form>
-</fieldset>
+</fieldset> -->
+
+
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.management_form }}
+    {% for field in form %}
+        {{ field }}
+    {% endfor %}
+    <input type="submit" value="Submit">
+</form>
