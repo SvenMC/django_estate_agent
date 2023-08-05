@@ -16,8 +16,9 @@ def for_rent_index(request):
 def for_sale_index(request):
     return render(request, 'for_sale_index.html')
 
-def property_detail(request):
-    return render(request, 'property_detail.html')
+def property_detail(request, id):
+    property = Property.objects.get(id=id)
+    return render(request, 'property_detail.html', {'property': property})
 
 @login_required(login_url="/admin/login/")
 @csrf_protect
