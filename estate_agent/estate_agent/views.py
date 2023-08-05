@@ -1,5 +1,4 @@
 from django.http import HttpResponse, HttpRequest
-from django.forms import modelformset_factory, modelform_factory
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_protect
@@ -23,15 +22,14 @@ def property_detail(request):
 @login_required(login_url="/admin/login/")
 @csrf_protect
 def property_form(request: HttpRequest):
-    PropertyFormset = modelformset_factory(Property, exclude=["created_at", "last_updated"])
 
     if request.method == "POST":
-        formset = PropertyFormset(request.POST, request.FILES)
-        if formset.is_valid():
-            formset.save()
+        form = PropertyForm(request.POST)
+        if form.is_valid():
+            form.save()
     else:
-        formset = PropertyFormset()
-    return render(request, "property_form.html", {'form':formset})
+        form = PropertyForm()
+    return render(request, "property_form.html", {'form': form})
 
 def login_portal(request):
     return render(request, 'login_portal.html')
