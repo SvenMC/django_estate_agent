@@ -1,4 +1,5 @@
 from django.http import HttpResponse, HttpRequest
+from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_protect
@@ -10,15 +11,19 @@ from .forms import PropertyForm
 def index(request):
     return render(request, 'index.html')
 
-def for_rent_index(request):
+def for_rent_index(request: HttpRequest):
     properties = Property.objects.filter(contract_type=1)
-    return render(request, 'for_rent_index.html', {'properties': properties})
+    paginator = Paginator(properties, 10)
 
-def for_sale_index(request):
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'for_rent_index.html', {'page_obj': page_obj})
+
+def for_sale_index(request: HttpRequest):
     properties = Property.objects.filter(contract_type=2)
     return render(request, 'for_sale_index.html', {'properties': properties})
 
-def property_detail(request, id):
+def property_detail(request: HttpRequest, id):
     property = Property.objects.get(id=id)
     return render(request, 'property_detail.html', {'property': property})
 
@@ -35,5 +40,5 @@ def property_form(request: HttpRequest):
         form = PropertyForm()
     return render(request, "property_form.html", {'form': form})
 
-def login_portal(request):
+def login_portal(request: HttpRequest):
     return render(request, 'login_portal.html')
