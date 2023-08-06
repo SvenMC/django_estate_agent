@@ -32,17 +32,22 @@ def for_sale_index(request: HttpRequest):
 
 def property_detail(request: HttpRequest, id):
     if request.method == "POST":
-        property = Property.objects.filter(pk=id)
-        property_type = property.first().contract_type
+        property = Property.objects.filter(pk=id).first()
 
-        property.delete()
+        if 'property_delete' in request.POST:
+            property_type = property.contract_type
+            property.delete()
 
-        if property_type == ContractType.RENT:
-            return redirect(f'/{UrlMap.for_rent_index}')
-        else:
-            return redirect(f'/{UrlMap.for_sale_index}')
+            if property_type == ContractType.RENT:
+                return redirect(f'/{UrlMap.for_rent_index}')
+            else:
+                return redirect(f'/{UrlMap.for_sale_index}')
+        elif 'property_edit' in request.POST:
+            return redirect(f'/{UrlMap.edit_property_form}{property.pk}/')
+
     else:
         property = Property.objects.get(id=id)
+
     return render(request, 'property_detail.html', {'property': property})
 
 
@@ -63,11 +68,15 @@ def property_form(request: HttpRequest):
 @login_required(login_url="/admin/login/")
 @csrf_protect
 def edit_property_form(request: HttpRequest, id):
+    # TODO add redirect on id out of range.
+    property = Property.objects.filter(pk=id).first()
+
     if request.method == "POST":
-        ...
+        form = PropertyForm(request.POST, instance=property)
+        if form.is_valid():
+            instance = form.save()
+            return redirect(f'/property/{instance.pk}/')
     else:
-        # TODO add redirect on id out of range.
-        property = Property.objects.filter(pk=id).first()
         form = PropertyForm(instance=property)
 
     return render(request, "property_form.html", {'form': form, 'edit': True})
