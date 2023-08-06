@@ -7,21 +7,25 @@ from django.views.decorators.csrf import csrf_protect
 
 from .models import Property
 from .forms import PropertyForm
+from .helpers import PaginationBuilder
+from utils import ContractType
 
 def index(request):
     return render(request, 'index.html')
 
 def for_rent_index(request: HttpRequest):
-    properties = Property.objects.filter(contract_type=1)
-    paginator = Paginator(properties, 10)
-
-    page_number = request.GET.get("page")
-    page_obj = paginator.get_page(page_number)
+    page_obj = PaginationBuilder.build_index_paginator(
+        request=request,
+        contract_type=ContractType.RENT
+    )
     return render(request, 'for_rent_index.html', {'page_obj': page_obj})
 
 def for_sale_index(request: HttpRequest):
-    properties = Property.objects.filter(contract_type=2)
-    return render(request, 'for_sale_index.html', {'properties': properties})
+    page_obj = PaginationBuilder.build_index_paginator(
+        request=request,
+        contract_type=ContractType.SELL
+    )
+    return render(request, 'for_sale_index.html', {'page_obj': page_obj})
 
 def property_detail(request: HttpRequest, id):
     property = Property.objects.get(id=id)
