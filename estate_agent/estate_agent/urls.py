@@ -25,7 +25,11 @@ urlpatterns = [
     path('', views.index, name='index'),
     path(UrlMap.for_rent_index, views.for_rent_index, name='for_rent_index'),
     path(UrlMap.for_sale_index, views.for_sale_index, name='for_sale_index'),
-    path(f'{UrlMap.property_detail}<str:id>/', views.property_detail, name='property_detail'),
+    path(
+        f'{UrlMap.property_detail}<str:id>/',
+        views.property_detail,
+        name='property_detail'
+    ),
     path(UrlMap.property_form, views.property_form, name='property_form'),
     path(UrlMap.login_portal, views.login_portal, name='login_portal'),
 ]

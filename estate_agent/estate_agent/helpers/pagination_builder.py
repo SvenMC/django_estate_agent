@@ -1,13 +1,17 @@
 from django.core.paginator import Paginator
-from django.http import HttpResponse, HttpRequest
+from django.http import HttpRequest
 
 from ..models import Property
 from utils import ContractType
 
+
 class PaginationBuilder:
 
     @staticmethod
-    def build_index_paginator(request: HttpRequest, contract_type: ContractType):
+    def build_index_paginator(
+        request: HttpRequest,
+        contract_type: ContractType
+    ):
         properties = Property.objects\
             .filter(contract_type=contract_type)\
             .order_by('created_at')
