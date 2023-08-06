@@ -31,5 +31,10 @@ urlpatterns = [
         name='property_detail'
     ),
     path(UrlMap.property_form, views.property_form, name='property_form'),
+    path(
+        f'{UrlMap.property_form}<str:id>/',
+        views.edit_property_form,
+        name='edit_property_form'
+    ),
     path(UrlMap.login_portal, views.login_portal, name='login_portal'),
 ]

@@ -57,7 +57,20 @@ def property_form(request: HttpRequest):
             return redirect(f'/property/{instance.pk}/')
     else:
         form = PropertyForm()
-    return render(request, "property_form.html", {'form': form})
+    return render(request, "property_form.html", {'form': form, 'edit': False})
+
+
+@login_required(login_url="/admin/login/")
+@csrf_protect
+def edit_property_form(request: HttpRequest, id):
+    if request.method == "POST":
+        ...
+    else:
+        # TODO add redirect on id out of range.
+        property = Property.objects.filter(pk=id).first()
+        form = PropertyForm(instance=property)
+
+    return render(request, "property_form.html", {'form': form, 'edit': True})
 
 
 def login_portal(request: HttpRequest):
