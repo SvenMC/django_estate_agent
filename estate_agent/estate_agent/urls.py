@@ -17,14 +17,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from . import views
+from .map import UrlMap
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     #
     path('', views.index, name='index'),
-    path('for_rent/', views.for_rent_index, name='for_rent_index'),
-    path('for_sale/', views.for_sale_index, name='for_sale_index'),
-    path('property/<str:id>/', views.property_detail, name='property_detail'),
-    path('property_form/', views.property_form, name='property_form'),
-    path('login/', views.login_portal, name='login_portal'),
+    path(UrlMap.for_rent_index, views.for_rent_index, name='for_rent_index'),
+    path(UrlMap.for_sale_index, views.for_sale_index, name='for_sale_index'),
+    path(f'{UrlMap.property_detail}<str:id>/', views.property_detail, name='property_detail'),
+    path(UrlMap.property_form, views.property_form, name='property_form'),
+    path(UrlMap.login_portal, views.login_portal, name='login_portal'),
 ]

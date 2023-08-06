@@ -3,3 +3,9 @@
 {{ property.address }}
 <br>
 {{ property.description }}
+<br>
+
+<form method="post">
+    {% csrf_token %}
+    <input type="submit" value="Delete">
+</form>

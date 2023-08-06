@@ -9,6 +9,7 @@ from .models import Property
 from .forms import PropertyForm
 from .helpers import PaginationBuilder
 from utils import ContractType
+from .map import UrlMap
 
 def index(request):
     return render(request, 'index.html')
@@ -28,7 +29,18 @@ def for_sale_index(request: HttpRequest):
     return render(request, 'for_sale_index.html', {'page_obj': page_obj})
 
 def property_detail(request: HttpRequest, id):
-    property = Property.objects.get(id=id)
+    if request.method == "POST":
+        property = Property.objects.filter(pk=id)
+        property_type = property.first().contract_type
+
+        property.delete()
+
+        if property_type == ContractType.RENT:
+            return redirect(f'/{UrlMap.for_rent_index}')
+        else:
+            return redirect(f'/{UrlMap.for_sale_index}')
+    else:
+        property = Property.objects.get(id=id)
     return render(request, 'property_detail.html', {'property': property})
 
 @login_required(login_url="/admin/login/")
