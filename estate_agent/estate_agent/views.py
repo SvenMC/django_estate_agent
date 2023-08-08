@@ -1,5 +1,6 @@
 from django.http import HttpRequest
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_protect
 
@@ -82,5 +83,18 @@ def edit_property_form(request: HttpRequest, id):
     return render(request, "property_form.html", {'form': form, 'edit': True})
 
 
+@csrf_protect
 def login_portal(request: HttpRequest):
+    if request.method == "POST":
+        user_email = request.POST['user_email']
+        user_password = request.POST['user_password']
+        user = authenticate(
+            request=request,
+            username=user_email,
+            password=user_password
+        )
+        if user is not None:
+            login(request, user)
+            return redirect('/')
+
     return render(request, 'login_portal.html')
