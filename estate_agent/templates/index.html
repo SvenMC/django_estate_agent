@@ -1,1 +1,8 @@
 <h3>Here is the index page!</h3>
+
+{% if is_logged_in %}
+<form method="post">
+    {% csrf_token %}
+    <input type="submit" value="Logout">
+</form>
+{% endif %}

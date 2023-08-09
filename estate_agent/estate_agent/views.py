@@ -1,9 +1,11 @@
 from django.http import HttpRequest
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_protect
+
+import time
 
 from .models import Property
 from .forms import PropertyForm
@@ -12,8 +14,14 @@ from utils import ContractType
 from .map import UrlMap
 
 
-def index(request):
-    return render(request, 'index.html')
+def index(request: HttpRequest):
+    # TODO Get this to correctly reload and remove logout button on logout.
+
+    if request.method == 'POST':
+        logout(request)
+        return render(request, 'index.html', {'is_logged_in': False})
+
+    return render(request, 'index.html', {'is_logged_in': True})
 
 
 def for_rent_index(request: HttpRequest):
