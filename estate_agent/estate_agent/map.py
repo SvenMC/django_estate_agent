@@ -5,3 +5,4 @@ class UrlMap:
     property_form = "property_form/"
     edit_property_form = "property_form/"
     login_portal = "login/"
+    register_user = "register/"

@@ -1,4 +1,5 @@
 from django.http import HttpRequest
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
@@ -98,3 +99,22 @@ def login_portal(request: HttpRequest):
             return redirect('/')
 
     return render(request, 'login_portal.html')
+
+
+@csrf_protect
+def register_user(request: HttpRequest):
+    # TODO Add logic for exiting email and other errors.
+    if request.method == "POST":
+        user_email = request.POST['user_email']
+        user_password = request.POST['user_password']
+        user = User.objects.create_user(
+            username=user_email,
+            password=user_password,
+            email=user_email
+        )
+        user.save()
+        if user is not None:
+            login(request, user)
+            return redirect('/')
+
+    return render(request, 'register_user.html')

@@ -37,4 +37,5 @@ urlpatterns = [
         name='edit_property_form'
     ),
     path(UrlMap.login_portal, views.login_portal, name='login_portal'),
+    path(UrlMap.register_user, views.register_user, name='register_user'),
 ]
