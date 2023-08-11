@@ -5,8 +5,6 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_protect
 
-import time
-
 from .models import Property
 from .forms import PropertyForm
 from .helpers import PaginationBuilder
@@ -15,13 +13,11 @@ from .map import UrlMap
 
 
 def index(request: HttpRequest):
-    # TODO Get this to correctly reload and remove logout button on logout.
 
     if request.method == 'POST':
         logout(request)
-        return render(request, 'index.html', {'is_logged_in': False})
 
-    return render(request, 'index.html', {'is_logged_in': True})
+    return render(request, 'index.html')
 
 
 def for_rent_index(request: HttpRequest):
