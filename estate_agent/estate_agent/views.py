@@ -122,3 +122,10 @@ def register_user(request: HttpRequest):
             return redirect('/')
 
     return render(request, 'register_user.html')
+
+
+@csrf_protect
+def user_logout(request: HttpRequest):
+    logout(request)
+
+    return render(request, 'index.html')

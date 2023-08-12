@@ -38,4 +38,5 @@ urlpatterns = [
     ),
     path(UrlMap.login_portal, views.login_portal, name='login_portal'),
     path(UrlMap.register_user, views.register_user, name='register_user'),
+    path(UrlMap.user_logout, views.user_logout, name='logout'),
 ]
