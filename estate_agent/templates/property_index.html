@@ -1,5 +1,6 @@
 {% include "components/navbar.html" %}
-<h3>Here is the for_sale_index page!</h3>
+
+<h3>Here is the property_index page!</h3>
 <ul>
     {% for property in page_obj %}
     <li><a href="/property/{{property.id}}/">{{ property.address }}</a></li>

@@ -25,7 +25,7 @@ def for_rent_index(request: HttpRequest):
         request=request,
         contract_type=ContractType.RENT
     )
-    return render(request, 'for_rent_index.html', {'page_obj': page_obj})
+    return render(request, 'property_index.html', {'page_obj': page_obj})
 
 
 def for_sale_index(request: HttpRequest):
@@ -33,7 +33,7 @@ def for_sale_index(request: HttpRequest):
         request=request,
         contract_type=ContractType.SELL
     )
-    return render(request, 'for_sale_index.html', {'page_obj': page_obj})
+    return render(request, 'property_index.html', {'page_obj': page_obj})
 
 
 def property_detail(request: HttpRequest, id):
