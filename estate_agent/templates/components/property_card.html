@@ -1,11 +1,11 @@
 {% load static %}
 
-<div class="card mb-2" style="min-height: 140px;">
+<div class="card mb-2 position-relative" style="min-height: 140px;">
     <div class="row no-gutters">
       <div class="col-md-6">
-        <img src="{% static 'images/placeholder.png' %}" class="card-img" alt="...">
+        {% include "components/carousel.html" %}
       </div>
-      <div class="col-md-6">
+      <div class="col-md-6 position-relative">
         <div class="card-body">
           <h5 class="card-title">{{ property.address }}</h5>
           <p class="card-text">{{ property.description }}</p>
