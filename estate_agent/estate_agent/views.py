@@ -62,7 +62,7 @@ def property_detail(request: HttpRequest, id):
 def property_form(request: HttpRequest):
 
     if request.method == "POST":
-        form = PropertyForm(request.POST)
+        form = PropertyForm(request.POST, request.FILES)
         if form.is_valid():
             instance = form.save()
             return redirect(f'/property/{instance.pk}/')
@@ -78,7 +78,7 @@ def edit_property_form(request: HttpRequest, id):
     property = Property.objects.filter(pk=id).first()
 
     if request.method == "POST":
-        form = PropertyForm(request.POST, instance=property)
+        form = PropertyForm(request.POST, request.FILES, instance=property)
         if form.is_valid():
             instance = form.save()
             return redirect(f'/property/{instance.pk}/')

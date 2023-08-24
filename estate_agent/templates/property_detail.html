@@ -5,8 +5,12 @@
 <br>
 {{ property.description }}
 <br>
+{% if property.image %}
+<img src="{{ property.image.url }}" class="d-block w-100" alt="...">
+{% endif %}
 
-<form method="post">
+
+<form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <input type="submit" name="property_edit" value="Edit">
     <input type="submit" name="property_delete" value="Delete">
