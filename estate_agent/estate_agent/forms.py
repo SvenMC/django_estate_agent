@@ -14,6 +14,3 @@ class PropertyImageForm(ModelForm):
     class Meta:
         model = PropertyImage
         fields = ['image']
-        widgets = {
-            'image': ClearableFileInput(attrs={'multiple': True}),
-        }
