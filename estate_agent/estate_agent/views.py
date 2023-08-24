@@ -5,8 +5,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_protect
 
-from .models import Property
-from .forms import PropertyForm
+from .models import Property, PropertyImage
+from .forms import PropertyForm, PropertyImageForm
 from .helpers import PaginationBuilder
 from utils import ContractType
 from .map import UrlMap
@@ -62,13 +62,34 @@ def property_detail(request: HttpRequest, id):
 def property_form(request: HttpRequest):
 
     if request.method == "POST":
-        form = PropertyForm(request.POST, request.FILES)
-        if form.is_valid():
-            instance = form.save()
-            return redirect(f'/property/{instance.pk}/')
+        property_form = PropertyForm(request.POST)
+        property_image_form = PropertyImageForm(request.POST, request.FILES)
+        images = request.FILES.getlist('image')
+
+        if property_form.is_valid():
+            instance = property_form.save()
+
+            for image in images:
+                PropertyImage.objects.create(property=instance, image=image)
+
+            if property_image_form.is_valid():
+                property_image_form.save()
+
+            return redirect('/')
+            # return redirect(f'/property/{instance.pk}/')
     else:
-        form = PropertyForm()
-    return render(request, "property_form.html", {'form': form, 'edit': False})
+        property_form = PropertyForm()
+        property_image_form = PropertyImageForm(request.POST, request.FILES)
+        images = PropertyImage.objects.all()
+
+    return render(
+        request, "property_form.html", {
+            'form': property_form,
+            'image_form': property_image_form,
+            'images': images,
+            'edit': False
+        }
+    )
 
 
 @login_required(login_url="/admin/login/")
