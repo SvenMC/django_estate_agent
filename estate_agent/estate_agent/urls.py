@@ -25,6 +25,7 @@ from rest_framework import routers
 
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
+router.register(r'properties', views.PropertiesViewSet)
 
 
 
@@ -50,7 +51,7 @@ urlpatterns = [
     path(UrlMap.user_logout, views.user_logout, name='logout'),
 
     # API
-    path('', include(router.urls)),
+    path('api/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
 

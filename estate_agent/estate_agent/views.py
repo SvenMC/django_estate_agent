@@ -12,7 +12,7 @@ from .forms import PropertyForm, PropertyImageForm
 from .helpers import PaginationBuilder
 from utils import ContractType
 from .map import UrlMap
-from serializers import UserSerializer
+from .serializers import UserSerializer, PropertiesSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -21,6 +21,15 @@ class UserViewSet(viewsets.ModelViewSet):
     """
     queryset = User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+
+class PropertiesViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = Property.objects.all().order_by('-last_updated')
+    serializer_class = PropertiesSerializer
     permission_classes = [permissions.IsAuthenticated]
 
 
