@@ -4,12 +4,24 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_protect
+from rest_framework import viewsets
+from rest_framework import permissions
 
 from .models import Property, PropertyImage
 from .forms import PropertyForm, PropertyImageForm
 from .helpers import PaginationBuilder
 from utils import ContractType
 from .map import UrlMap
+from serializers import UserSerializer
+
+
+class UserViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = User.objects.all().order_by('-date_joined')
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
 
 def index(request: HttpRequest):
