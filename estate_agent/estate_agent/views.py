@@ -13,7 +13,8 @@ from .forms import PropertyForm, PropertyImageForm
 from .helpers import PaginationBuilder
 from utils import ContractType
 from .map import UrlMap
-from .serializers import UserSerializer, PropertiesSerializer
+from .serializers import \
+    UserSerializer, PropertiesSerializer, PropertyIndexSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -35,11 +36,16 @@ class PropertiesViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['contract_type']
 
+
 class RentViewSet(PropertiesViewSet):
-    queryset = Property.objects.filter(contract_type=1)
+    queryset = Property.objects.filter(contract_type=1).order_by('-created_at')
+    serializer_class = PropertyIndexSerializer
+
 
 class BuyViewSet(PropertiesViewSet):
-    queryset = Property.objects.filter(contract_type=2)
+    queryset = Property.objects.filter(contract_type=2).order_by('-created_at')
+    serializer_class = PropertyIndexSerializer
+
 
 def index(request: HttpRequest):
 

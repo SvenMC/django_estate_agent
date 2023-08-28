@@ -20,7 +20,6 @@ from django.conf.urls.static import static
 from django.urls import path, include
 from . import views
 from .map import UrlMap
-from .models import Property, PropertyImage
 
 from rest_framework import routers
 
