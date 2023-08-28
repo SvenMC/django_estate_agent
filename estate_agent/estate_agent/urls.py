@@ -20,12 +20,15 @@ from django.conf.urls.static import static
 from django.urls import path, include
 from . import views
 from .map import UrlMap
+from .models import Property, PropertyImage
 
 from rest_framework import routers
 
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
 router.register(r'properties', views.PropertiesViewSet)
+router.register(r'rent', views.RentViewSet, basename='rent')
+router.register(r'buy', views.BuyViewSet, basename='buy')
 
 
 

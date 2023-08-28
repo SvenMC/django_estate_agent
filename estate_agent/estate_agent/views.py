@@ -35,6 +35,11 @@ class PropertiesViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['contract_type']
 
+class RentViewSet(PropertiesViewSet):
+    queryset = Property.objects.filter(contract_type=1)
+
+class BuyViewSet(PropertiesViewSet):
+    queryset = Property.objects.filter(contract_type=2)
 
 def index(request: HttpRequest):
 
