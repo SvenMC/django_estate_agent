@@ -17,34 +17,23 @@ Including another URLconf
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
-from django.urls import path
+from django.urls import path, include
 from . import views
 from .map import UrlMap
 
+from rest_framework import routers
+
+router = routers.DefaultRouter()
+router.register(r'users', views.UserViewSet)
+router.register(r'properties', views.PropertiesViewSet)
+router.register(r'rent', views.RentViewSet, basename='rent')
+router.register(r'buy', views.BuyViewSet, basename='buy')
+
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    #
-    path('', views.index, name='index'),
-    path(UrlMap.for_rent_index, views.for_rent_index, name='for_rent_index'),
-    path(UrlMap.for_sale_index, views.for_sale_index, name='for_sale_index'),
-    path(
-        f'{UrlMap.property_detail}<str:id>/',
-        views.property_detail,
-        name='property_detail'
-    ),
-    path(UrlMap.property_form, views.property_form, name='property_form'),
-    path(
-        f'{UrlMap.property_form}<str:id>/',
-        views.edit_property_form,
-        name='edit_property_form'
-    ),
-    path(UrlMap.login_portal, views.login_portal, name='login_portal'),
-    path(UrlMap.register_user, views.register_user, name='register_user'),
-    path(UrlMap.user_logout, views.user_logout, name='logout'),
+    path('api/', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
 
-if settings.DEBUG:
-    urlpatterns += static(
-        settings.MEDIA_URL,
-        document_root=settings.MEDIA_ROOT
-    )
