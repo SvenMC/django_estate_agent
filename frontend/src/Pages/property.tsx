@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import base_api from '../config';
+import { useParams } from 'react-router-dom';
 
 function Property() {
+    const { id } = useParams();
     const [property, setProperty] = useState<PropertyData | null>(null);
 
     useEffect(() => {
-        const url = `${base_api}api/properties/12/`;
+        const url = `${base_api}api/properties/${id}/`;
 
         axios.get<PropertyData>(url)
             .then(function (response) {
@@ -15,7 +17,7 @@ function Property() {
             .catch(function (error) {
                 setProperty(null);
             });
-    }, []);
+    }, [id]);
 
     return (
         <div className="Property">
