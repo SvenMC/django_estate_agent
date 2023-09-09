@@ -2,15 +2,6 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import base_api from '../config';
 
-type PropertyData = {
-    url: string;
-    created_at: string;
-    last_updated: string;
-    address: string;
-    description: string;
-    contract_type: number;
-};
-
 function Property() {
     const [property, setProperty] = useState<PropertyData | null>(null);
 
