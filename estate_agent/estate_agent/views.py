@@ -23,7 +23,7 @@ class PropertiesViewSet(viewsets.ModelViewSet):
     """
     queryset = Property.objects.all().order_by('-last_updated')
     serializer_class = PropertiesSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = []
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['contract_type']
 
