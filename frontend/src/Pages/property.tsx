@@ -1,22 +1,37 @@
-import axios, * as others from 'axios';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import base_api from '../config';
 
-function getProperty(): string {
-
-  const url = "http://127.0.0.1:8000/api/properties/12/";
-  const response = axios.get(url);
-  var text: string = response.toString();
-  return text;
-
-}
-
+type PropertyData = {
+    url: string;
+    created_at: string;
+    last_updated: string;
+    address: string;
+    description: string;
+    contract_type: number;
+};
 
 function Property() {
-  const property = getProperty();
-  return (
-    <div className="Property">
-      <h1>{property}</h1>
-    </div>
-  );
+    const [property, setProperty] = useState<PropertyData | null>(null);
+
+    useEffect(() => {
+        const url = `${base_api}api/properties/12/`;
+
+        axios.get<PropertyData>(url)
+            .then(function (response) {
+                setProperty(response.data);
+            })
+            .catch(function (error) {
+                setProperty(null);
+            });
+    }, []);
+
+    return (
+        <div className="Property">
+            {property != null && <h1>{property.address}</h1>}
+            {property != null && <p>{property.description}</p>}
+        </div>
+    );
 }
 
 export default Property;
