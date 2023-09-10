@@ -5,10 +5,12 @@ import './App.css';
 import Home from './Pages/Home';
 import Rent from './Pages/Rent';
 import Buy from './Pages/Buy';
+import Navbar from './Components/Navbar';
 
 function App() {
     return (
         <BrowserRouter>
+        <Navbar />
             <Routes>
                 <Route path="/" element={<Home />}>
                 </Route>
