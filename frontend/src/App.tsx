@@ -4,6 +4,7 @@ import Property from './Pages/Property';
 import './App.css';
 import Home from './Pages/Home';
 import Rent from './Pages/Rent';
+import Buy from './Pages/Buy';
 
 function App() {
     return (
@@ -14,6 +15,8 @@ function App() {
                 <Route path="/property/:id/" element={<Property />}>
                 </Route>
                 <Route path="/rent/" element={<Rent />}>
+                </Route>
+                <Route path="/buy/" element={<Buy />}>
                 </Route>
             </Routes>
         </BrowserRouter>

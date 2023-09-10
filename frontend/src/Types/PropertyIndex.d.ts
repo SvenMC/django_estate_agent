@@ -1,11 +1,11 @@
-type RentIndex = {
+type PropertyIndex = {
     count: number;
     next: string|null;
     previous: string|null;
-    results: RentItems[];
+    results: PropertyIndexItems[];
 }
 
-type RentItems = {
+type PropertyIndexItems = {
     id: number;
     url: string;
     created_at: string;
