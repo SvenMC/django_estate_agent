@@ -2,14 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-  font-family: Blackout;
-  src: url("../fonts/Inter.ttf") format("truetype");
-}
-
 /* GLOBAL STYLES HERE FOR THE ENTIRE APP */
 body {
-  background-color: gray;
+  background-color: #f5f7f7;
   font-family: "Inter", sans-serif;
 }
 /* Just placed this here to help see the background of each component */
