@@ -1,24 +1,29 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import base_api from "../config";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-export default function PropertyIndex(props: { propertyType: string; }) {
-  const [PropertyIndexItems, setPropertyIndexItems] = useState<PropertyIndexItems[]>();
+interface PropsType {
+  propertyType: string;
+}
+
+export default function PropertyIndex(props: PropsType) {
+  const [PropertyIndexItems, setPropertyIndexItems] =
+    useState<PropertyIndexItemsTypes[]>();
   let propertyType = props.propertyType;
 
   useEffect(() => {
     const url = `${base_api}api/${propertyType}/`;
 
     axios
-      .get<PropertyIndex>(url)
+      .get<PropertyIndexTypes>(url)
       .then(function (response) {
         setPropertyIndexItems(response.data.results);
       })
       .catch(function (error) {
         setPropertyIndexItems([]);
       });
-  }, []);
+  }, [props, propertyType]);
 
   return (
     <div className="PropertyIndex">
