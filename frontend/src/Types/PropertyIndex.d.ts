@@ -1,11 +1,11 @@
-type PropertyIndexTypes = {
+export type PropertyIndexTypes = {
   count: number;
   next: string | null;
   previous: string | null;
-  results: PropertyIndexItems[];
+  results: PropertyIndexItemsTypes[];
 };
 
-type PropertyIndexItemsTypes = {
+export type PropertyIndexItemsTypes = {
   id: number;
   url: string;
   created_at: string;
