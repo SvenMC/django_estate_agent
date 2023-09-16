@@ -25,6 +25,11 @@ load_dotenv()
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY')
+DB_NAME = os.getenv('NAME')
+DB_USER = os.getenv('USER')
+DB_PASSWORD = os.getenv('PASSWORD')
+DB_HOST = os.getenv('HOST')
+DB_PORT = os.getenv('PORT')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -90,8 +95,12 @@ WSGI_APPLICATION = 'estate_agent.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': DB_NAME,
+        'USER': DB_USER,
+        'PASSWORD': DB_PASSWORD,
+        'HOST': DB_HOST,
+        'PORT': DB_PORT
     }
 }
 
