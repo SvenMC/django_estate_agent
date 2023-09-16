@@ -7,6 +7,7 @@ import {
   PropertyIndexTypes,
   PropertyIndexItemsTypes,
 } from "../Types/PropertyIndex";
+import PropertyCard from "./PropertyCard";
 
 interface PropsType {
   propertyType: string;
@@ -31,13 +32,13 @@ export default function PropertyIndex(props: PropsType) {
   }, [props, propertyType]);
 
   return (
-    <div className="PropertyIndex">
+    <div className="PropertyIndex grid place-items-center">
       <ul>
         {PropertyIndexItems &&
           PropertyIndexItems.map((property, id) => {
             return (
               <li key={id}>
-                <Link to={`/property/${property.id}/`}>{property.address}</Link>
+                <PropertyCard id={property.id} address={property.address}/>
               </li>
             );
           })}
