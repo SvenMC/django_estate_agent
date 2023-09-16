@@ -32,17 +32,18 @@ export default function PropertyIndex(props: PropsType) {
   }, [props, propertyType]);
 
   return (
-    <div className="PropertyIndex grid place-items-center">
-      <ul>
-        {PropertyIndexItems &&
-          PropertyIndexItems.map((property, id) => {
-            return (
-              <li key={id}>
-                <PropertyCard id={property.id} address={property.address}/>
-              </li>
-            );
-          })}
-      </ul>
+    <div className="PropertyIndex grid grid-cols-6 justify-center">
+      <div className="col-span-1"></div>
+      <div className="col-span-4">
+        <div className="grid grid-cols-2">
+          {PropertyIndexItems &&
+            PropertyIndexItems.map((property, id) => {
+              return (
+                <PropertyCard id={property.id} address={property.address} />
+              );
+            })}
+        </div>
+      </div>
     </div>
   );
 }
