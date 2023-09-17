@@ -1,4 +1,7 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import base_api from "../config";
 interface PropertyFormElements extends HTMLFormControlsCollection {
     address: HTMLInputElement
     contract: HTMLInputElement
@@ -10,12 +13,34 @@ interface PropertyFormElement extends HTMLFormElement {
 }
 export default function PropertyForm() {
 
+    const [response, setResponse] = useState<null|string>(null);
+    const navigate = useNavigate();
+
     function handleSubmit(event: React.FormEvent<PropertyFormElement>) {
         event.preventDefault();
-        console.log(event.currentTarget.elements.address.value);
-        console.log(event.currentTarget.elements.contract.value);
-        console.log(event.currentTarget.elements.description.value);
-    }
+
+        const form = event.currentTarget.elements;
+        const url = `${base_api}api/properties/`;
+
+        axios.post(url, {
+            address: form.address.value,
+            description: form.description.value,
+            contract_type: form.contract.value
+          })
+          .then(function (response) {
+            setResponse(`/property/${response.data.id}/`);
+          })
+          .catch(function (error) {
+            console.log(error);
+            setResponse(null);
+          });
+        }
+
+    useEffect(() => {
+        if (response) {
+            navigate(response);
+        }
+    });
 
   return (
     <div className="PropertyForm py-8">
@@ -86,8 +111,8 @@ export default function PropertyForm() {
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                 >
 
-                  <option value="Rent">Rent</option>
-                  <option value="Sale">Sale</option>
+                  <option value={1}>Rent</option>
+                  <option value={2}>Sale</option>
                 </select>
               </div>
               <div>
