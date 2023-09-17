@@ -62,6 +62,19 @@ export default function Navbar() {
         >
           Property 12
         </NavLink>
+        {/* This is temporary */}
+        <NavLink
+          to={`/property/add/`}
+          className={({ isActive, isPending }) =>
+            isPending
+              ? "pending"
+              : isActive
+              ? `${activeStyles} ${menuStyles}`
+              : menuStyles
+          }
+        >
+          Add Property
+        </NavLink>
       </div>
       <div className="flex gap-4">
         <button className="px-6 py-3 font-semibold transition-colors rounded-md bg-secondary text-primary hover:bg-secondaryHover">
