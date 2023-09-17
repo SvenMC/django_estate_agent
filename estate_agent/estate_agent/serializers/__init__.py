@@ -1,3 +1,4 @@
 from .user_serializer import UserSerializer
 from .properties_serializer import PropertiesSerializer
 from .property_index_serializer import PropertyIndexSerializer
+from .property_images_serializer import PropertyImageSerializer
