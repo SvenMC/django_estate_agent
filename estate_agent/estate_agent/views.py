@@ -1,11 +1,14 @@
 from django.contrib.auth.models import User
-from rest_framework import viewsets
-from rest_framework import permissions
+from rest_framework import viewsets, permissions
+from rest_framework.response import Response
+from rest_framework.request import Request
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.decorators import action
 
-from .models import Property
+from .models import Property, PropertyImage
 from .serializers import \
-    UserSerializer, PropertiesSerializer, PropertyIndexSerializer
+    UserSerializer, PropertiesSerializer, PropertyIndexSerializer, \
+    PropertyImageSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -27,6 +30,15 @@ class PropertiesViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['contract_type']
 
+    @action(detail=True, methods=['get'])
+    def images(self, request: Request, pk=None):
+        queryset = PropertyImage.objects.filter(property__id=pk)
+
+        serializer = PropertyImageSerializer(
+            queryset, many=True, context={'request': request}
+        )
+        return Response(serializer.data)
+
 
 class RentViewSet(PropertiesViewSet):
     queryset = Property.objects.filter(contract_type=1).order_by('-created_at')
@@ -36,3 +48,13 @@ class RentViewSet(PropertiesViewSet):
 class BuyViewSet(PropertiesViewSet):
     queryset = Property.objects.filter(contract_type=2).order_by('-created_at')
     serializer_class = PropertyIndexSerializer
+
+
+class PropertyImageViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows Property images to be viewed or edited.
+    """
+    queryset = PropertyImage.objects.all().order_by('property_id')
+    serializer_class = PropertyImageSerializer
+    permission_classes = []
+    filter_backends = [DjangoFilterBackend]
