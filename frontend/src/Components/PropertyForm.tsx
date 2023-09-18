@@ -3,49 +3,41 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import base_api from "../config";
 interface PropertyFormElements extends HTMLFormControlsCollection {
-    address: HTMLInputElement
-    contract: HTMLInputElement
-    description: HTMLInputElement
+  address: HTMLInputElement;
+  contract: HTMLInputElement;
+  description: HTMLInputElement;
 }
 
 interface PropertyFormElement extends HTMLFormElement {
-   readonly elements: PropertyFormElements
+  readonly elements: PropertyFormElements;
 }
 export default function PropertyForm() {
+  const navigate = useNavigate();
 
-    const [response, setResponse] = useState<null|string>(null);
-    const navigate = useNavigate();
+  function handleSubmit(event: React.FormEvent<PropertyFormElement>) {
+    event.preventDefault();
 
-    function handleSubmit(event: React.FormEvent<PropertyFormElement>) {
-        event.preventDefault();
+    const form = event.currentTarget.elements;
+    const url = `${base_api}api/properties/`;
 
-        const form = event.currentTarget.elements;
-        const url = `${base_api}api/properties/`;
-
-        axios.post(url, {
-            address: form.address.value,
-            description: form.description.value,
-            contract_type: form.contract.value
-          })
-          .then(function (response) {
-            setResponse(`/property/${response.data.id}/`);
-          })
-          .catch(function (error) {
-            console.log(error);
-            setResponse(null);
-          });
-        }
-
-    useEffect(() => {
-        if (response) {
-            navigate(response);
-        }
-    });
+    axios
+      .post(url, {
+        address: form.address.value,
+        description: form.description.value,
+        contract_type: form.contract.value,
+      })
+      .then(function (response) {
+        navigate(`/property/${response.data.id}/`);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
 
   return (
-    <div className="PropertyForm py-8">
-      <section className="bg-white dark:bg-gray-800 rounded-3xl shadow-2xl">
-        <div className="py-8 px-4 mx-auto max-w-2xl lg:py-16">
+    <div className="py-8 PropertyForm">
+      <section className="bg-white shadow-2xl dark:bg-gray-800 rounded-3xl">
+        <div className="max-w-2xl px-4 py-8 mx-auto lg:py-16">
           <h2 className="mb-4 text-xl font-bold text-gray-900 dark:text-white">
             Add a new property
           </h2>
@@ -112,7 +104,6 @@ export default function PropertyForm() {
                   id="contract"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                 >
-
                   <option value={1}>Rent</option>
                   <option value={2}>Sale</option>
                 </select>
@@ -139,7 +130,7 @@ export default function PropertyForm() {
                   htmlFor="description"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
-                 Property Description
+                  Property Description
                 </label>
                 <textarea
                   id="description"

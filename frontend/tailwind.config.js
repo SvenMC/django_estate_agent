@@ -11,6 +11,7 @@ module.exports = {
         primaryHover: "#2397BF",
         secondary: "#E9F6FB",
         secondaryHover: "#E1F3FA",
+        cardBorder: "#C6EAF5",
       },
     },
   },
