@@ -9,7 +9,7 @@ export default function Navbar() {
     "text-primary bg-secondary transition-colors duration-300";
 
   return (
-    <div className="flex mb-5 w-full bg-white h-[95px] items-center px-10 drop-shadow-sm">
+    <div className="flex w-full bg-white h-[95px] items-center px-10 drop-shadow-sm">
       <NavLink to={`/`} className="mr-6 h-100">
         <img src={LOGO} alt="logo" className="h-[41px] max-w-none" />
       </NavLink>

@@ -32,7 +32,7 @@ export default function PropertyIndex(props: PropsType) {
   }, [props, propertyType]);
 
   return (
-    <div className="grid justify-center max-w-screen-xl grid-cols-1 px-6 py-4 mx-auto gap-y-4 gap-x-8 md:grid-cols-2 PropertyIndex">
+    <div className="grid justify-center max-w-screen-xl grid-cols-1 px-6 py-12 mx-auto gap-y-8 gap-x-8 lg:grid-cols-2 PropertyIndex">
       {PropertyIndexItems &&
         PropertyIndexItems.map((property, id) => {
           return (
