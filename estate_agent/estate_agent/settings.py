@@ -30,6 +30,11 @@ DB_USER = os.getenv('DB_USER')
 DB_PASSWORD = os.getenv('DB_PASSWORD')
 DB_HOST = os.getenv('DB_HOST')
 DB_PORT = os.getenv('DB_PORT')
+S3_BUCKET_KEY_ID = os.getenv('S3_BUCKET_KEY_ID')
+S3_BUCKET_KEY = os.getenv('S3_BUCKET_KEY')
+S3_STORAGE_BUCKET_NAME = os.getenv('S3_STORAGE_BUCKET_NAME')
+S3_REGION_NAME = os.getenv('S3_REGION_NAME')
+S3_ENDPOINT_URL = os.getenv('S3_ENDPOINT_URL')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -40,6 +45,30 @@ ALLOWED_HOSTS = ['127.0.0.1']
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
 ]
+
+# Storage
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.s3.S3Storage",
+        "OPTIONS": {
+            "secret_key": S3_BUCKET_KEY,
+            "access_key": S3_BUCKET_KEY_ID,
+            "bucket_name": S3_STORAGE_BUCKET_NAME,
+            "region_name": S3_REGION_NAME,
+            "endpoint_url": S3_ENDPOINT_URL
+        },
+    },
+    "staticfiles": {
+        "BACKEND": "storages.backends.s3.S3Storage",
+        "OPTIONS": {
+            "secret_key": S3_BUCKET_KEY,
+            "access_key": S3_BUCKET_KEY_ID,
+            "bucket_name": S3_STORAGE_BUCKET_NAME,
+            "region_name": S3_REGION_NAME,
+            "endpoint_url": S3_ENDPOINT_URL
+        },
+    },
+}
 
 # Application definition
 
@@ -147,15 +176,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = f'{S3_ENDPOINT_URL}/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
+# STATICFILES_DIRS = (
+#     os.path.join(BASE_DIR, 'static'),
+# )
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# MEDIA_URL = '/media/'
