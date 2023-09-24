@@ -25,11 +25,13 @@ load_dotenv()
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY')
+
 DB_NAME = os.getenv('DB_NAME')
 DB_USER = os.getenv('DB_USER')
 DB_PASSWORD = os.getenv('DB_PASSWORD')
 DB_HOST = os.getenv('DB_HOST')
 DB_PORT = os.getenv('DB_PORT')
+
 S3_BUCKET_KEY_ID = os.getenv('S3_BUCKET_KEY_ID')
 S3_BUCKET_KEY = os.getenv('S3_BUCKET_KEY')
 S3_STORAGE_BUCKET_NAME = os.getenv('S3_STORAGE_BUCKET_NAME')
@@ -39,7 +41,9 @@ S3_ENDPOINT_URL = os.getenv('S3_ENDPOINT_URL')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = [
+    '127.0.0.1'
+]
 
 # Currently just allowing React port
 CORS_ALLOWED_ORIGINS = [
@@ -182,9 +186,3 @@ STATIC_URL = f'{S3_ENDPOINT_URL}/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-# STATICFILES_DIRS = (
-#     os.path.join(BASE_DIR, 'static'),
-# )
-
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-# MEDIA_URL = '/media/'
