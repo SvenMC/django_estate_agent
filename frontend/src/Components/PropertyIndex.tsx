@@ -7,6 +7,7 @@ import {
   PropertyIndexTypes,
   PropertyIndexItemsTypes,
 } from "../Types/PropertyIndex";
+import PropertyCard from "./PropertyCard";
 
 interface PropsType {
   propertyType: string;
@@ -31,17 +32,17 @@ export default function PropertyIndex(props: PropsType) {
   }, [props, propertyType]);
 
   return (
-    <div className="PropertyIndex">
-      <ul>
-        {PropertyIndexItems &&
-          PropertyIndexItems.map((property, id) => {
-            return (
-              <li key={id}>
-                <Link to={`/property/${property.id}/`}>{property.address}</Link>
-              </li>
-            );
-          })}
-      </ul>
+    <div className="grid justify-center max-w-screen-xl grid-cols-1 px-6 py-12 mx-auto gap-y-8 gap-x-8 lg:grid-cols-2 PropertyIndex">
+      {PropertyIndexItems &&
+        PropertyIndexItems.map((property, id) => {
+          return (
+            <PropertyCard
+              id={property.id}
+              key={id}
+              address={property.address}
+            />
+          );
+        })}
     </div>
   );
 }

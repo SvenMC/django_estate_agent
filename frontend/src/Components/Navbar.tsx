@@ -4,14 +4,14 @@ import { NavLink } from "react-router-dom";
 
 export default function Navbar() {
   const menuStyles =
-    "hover:text-cyan-600 transition-colors text-base px-4 py-3 rounded-md";
-
-  const activeStyles = "text-primary bg-secondary font-semibold";
+    "hover:text-cyan-600 transition-colors text-base px-4 py-3 rounded-md flex items-center";
+  const activeStyles =
+    "text-primary bg-secondary transition-colors duration-300";
 
   return (
-    <div className="flex mb-5 w-full bg-white h-[95px] items-center px-10 drop-shadow-sm">
+    <div className="flex w-full bg-white h-[95px] items-center px-10 drop-shadow-sm">
       <NavLink to={`/`} className="mr-6 h-100">
-        <img src={LOGO} alt="logo" className="h-[41px]" />
+        <img src={LOGO} alt="logo" className="h-[41px] max-w-none" />
       </NavLink>
       <div className="flex flex-1 gap-8">
         <NavLink
@@ -61,6 +61,19 @@ export default function Navbar() {
           }
         >
           Property 12
+        </NavLink>
+        {/* This is temporary */}
+        <NavLink
+          to={`/property/add/`}
+          className={({ isActive, isPending }) =>
+            isPending
+              ? "pending"
+              : isActive
+              ? `${activeStyles} ${menuStyles}`
+              : menuStyles
+          }
+        >
+          Add Property
         </NavLink>
       </div>
       <div className="flex gap-4">
