@@ -50,6 +50,9 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
 ]
 
+# Upload limit in MB
+FILE_SIZE_UPLOAD_LIMIT = 12
+
 # Storage
 STORAGES = {
     "default": {
