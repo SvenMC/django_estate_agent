@@ -37,6 +37,10 @@ class PropertiesViewSet(viewsets.ModelViewSet):
         serializer = PropertyImageSerializer(
             queryset, many=True, context={'request': request}
         )
+
+        if serializer.data == []:
+            return Response(None)
+
         return Response(serializer.data)
 
 
