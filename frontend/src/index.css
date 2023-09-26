@@ -7,4 +7,77 @@ body {
   background-color: #f5f7f7;
   font-family: "Inter", sans-serif;
 }
-/* Just placed this here to help see the background of each component */
+
+.swiper-button-prev.swiper-button-prev,
+.swiper-button-next.swiper-button-next {
+  top: 45%;
+  width: 40px;
+  height: 40px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  color: white;
+  font-weight: 700;
+  outline: 0;
+  margin-top: 0;
+  transition: background-color 0.2s ease, color 0.2s ease;
+
+  &::after {
+    font-size: 16px;
+  }
+}
+
+.swiper-button-next:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.swiper-button-prev:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.swiper-button-prev.swiper-button-prev {
+  &:after {
+    position: relative;
+    left: -1px;
+  }
+}
+
+.swiper-button-next.swiper-button-next {
+  &:after {
+    position: relative;
+    left: 1px;
+  }
+}
+
+.swiper-button-prev.swiper-button-prev,
+.swiper-container-rtl .swiper-button-next {
+  left: 10px;
+  right: auto;
+}
+
+.swiper-button-next.swiper-button-next,
+.swiper-container-rtl .swiper-button-prev {
+  right: 10px;
+  left: auto;
+}
+
+.swiper-button-prev.swiper-button-disabled,
+.swiper-button-next.swiper-button-disabled {
+  opacity: 0;
+  cursor: auto;
+  pointer-events: none;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+}
+
+/* .swiper-button-prev.swiper-button-prev {
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 32px;
+}
+
+.swiper-button-next.swiper-button-next {
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 32px;
+} */
