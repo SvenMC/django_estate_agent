@@ -32,7 +32,6 @@ interface PropertyImage {
 }
 
 export default function PropertyCard(props: PropertyInfo) {
-  console.log("PROOOPS", props);
   const [isLoading, setIsLoading] = useState<Boolean>(false);
   const [propertyImages, setPropertyImages] = useState<PropertyImage[]>([]);
   const [selectedImage, setSelectedImage] = useState<String>("");
@@ -43,7 +42,6 @@ export default function PropertyCard(props: PropertyInfo) {
     axios
       .get(url)
       .then(function (response) {
-        console.log(response.data);
         setPropertyImages(response.data);
         setIsLoading(false);
       })
