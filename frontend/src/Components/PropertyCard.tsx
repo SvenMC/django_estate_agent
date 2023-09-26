@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   MdOutlineBed,
@@ -6,34 +6,73 @@ import {
   MdFavorite,
   MdOutlineDescription,
 } from "react-icons/md";
-
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import { Navigation } from "swiper/modules";
 import { BsStars } from "react-icons/bs";
+
+import DefaultImage from "../assets/placeholder.jpg";
 
 interface PropertyInfo {
   id: number;
   address: string;
 }
 
-const TEMP_IMAGE =
-  "https://images.unsplash.com/photo-1570129477492-45c003edd2be?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2970&q=80";
-
-const TEMP_IMAGE2 =
-  "https://smaller-pictures.appspot.com/images/dreamstime_xxl_65780868_small.jpg";
-
 export default function PropertyCard(props: PropertyInfo) {
+  const [isLoading, setIsLoading] = useState<Boolean>(false);
+  const [propertyImages, setPropertyImages] = useState([]);
+  const [selectedImage, setSelectedImage] = useState<String>("");
+
+  useEffect(() => {
+    setIsLoading(true);
+    if (propertyImages) {
+      setSelectedImage(propertyImages[0]);
+      setIsLoading(false);
+    }
+  }, []);
+
   return (
     <div className="PropertyCard">
       <Link to={`/property/${props.id}/`}>
-        <div className="relative w-full transition-colors bg-white rounded-lg shadow">
-          <img
-            className="w-full h-[200px] object-cover object-center rounded-t-lg border"
-            src={TEMP_IMAGE}
-            alt="No property image"
-          ></img>
+        <div className="w-full transition-colors bg-white rounded-lg shadow">
+          <div className="rounded-t-lg h-[300px]">
+            {propertyImages.length !== 0 ? (
+              <Swiper
+                navigation={true}
+                loop={true}
+                modules={[Navigation]}
+                onSlideChange={(e: any) => {
+                  setSelectedImage(propertyImages[e.realIndex]);
+                }}
+                className="h-full rounded-t-lg mySwiper"
+              >
+                {propertyImages &&
+                  propertyImages.map((image, id) => {
+                    return (
+                      <SwiperSlide>
+                        <img
+                          key={id}
+                          src={image}
+                          alt="testboom"
+                          className="object-cover object-center w-full h-full"
+                        />
+                      </SwiperSlide>
+                    );
+                  })}
+              </Swiper>
+            ) : (
+              <img
+                src={DefaultImage}
+                alt="testboom"
+                className="object-cover object-center w-full h-full rounded-t-lg"
+              />
+            )}
+          </div>
           <div className="relative border rounded-b-lg border-cardBorder">
             <div
               style={{ top: "calc(0px - 16px)" }}
-              className="absolute -left-3"
+              className="absolute z-50 -left-3"
             >
               <div className="flex items-center h-8 gap-1 pl-5 pr-4 text-[13px] font-semibold text-white uppercase rounded-r-lg rounded-tl-lg bg-primary">
                 <BsStars size={12} />
@@ -58,11 +97,33 @@ export default function PropertyCard(props: PropertyInfo) {
                 </div>
               </div>
 
-              <div className="grid gap-1.5">
-                <div className="text-2xl font-bold">Westerville Street</div>
-                <p className="text-base font-normal text-gray-400">
-                  7938 Jockey Hollow Dr.Pewaukee
-                </p>
+              <div className="flex items-end justify-between">
+                <div className="grid gap-1.5">
+                  <div className="text-2xl font-bold">Westerville Street</div>
+                  <p className="text-base font-normal text-gray-400">
+                    7938 Jockey Hollow Dr.Pewaukee
+                  </p>
+                </div>
+
+                <div className="flex gap-2">
+                  {propertyImages.map((thumbnail, index) => (
+                    <div
+                      key={index}
+                      className={`bg-gray-500 border-2 ${
+                        selectedImage === thumbnail
+                          ? "border-primary"
+                          : "border-white"
+                      } w-9 h-9`}
+                    >
+                      <img
+                        src={thumbnail}
+                        alt="image"
+                        className="object-cover h-full"
+                        onClick={() => setSelectedImage(thumbnail)}
+                      />
+                    </div>
+                  ))}
+                </div>
               </div>
               <div className="flex gap-6 pt-5 mt-4 border-t-2 border-cardBorder">
                 <div className="flex items-center gap-2 text-sm font-medium text-gray-500">
