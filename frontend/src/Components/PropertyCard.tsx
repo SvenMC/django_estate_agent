@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
 import {
   MdOutlineBed,
@@ -11,26 +12,54 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import { BsStars } from "react-icons/bs";
-
+import base_api from "../config";
 import DefaultImage from "../assets/placeholder.jpg";
+import LoadingCard from "./LoadingCard";
+
+import "../Styles/PropertyCard.css";
 
 interface PropertyInfo {
   id: number;
   address: string;
 }
 
+interface PropertyImage {
+  url: string;
+  id: number;
+  property_id: number;
+  image: string;
+  property: string;
+}
+
 export default function PropertyCard(props: PropertyInfo) {
+  console.log("PROOOPS", props);
   const [isLoading, setIsLoading] = useState<Boolean>(false);
-  const [propertyImages, setPropertyImages] = useState([]);
+  const [propertyImages, setPropertyImages] = useState<PropertyImage[]>([]);
   const [selectedImage, setSelectedImage] = useState<String>("");
+
+  const getPropertyImages = async () => {
+    const url = `${base_api}api/properties/${props.id}/images/`;
+
+    axios
+      .get(url)
+      .then(function (response) {
+        console.log(response.data);
+        setPropertyImages(response.data);
+        setIsLoading(false);
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  };
 
   useEffect(() => {
     setIsLoading(true);
-    if (propertyImages) {
-      setSelectedImage(propertyImages[0]);
-      setIsLoading(false);
-    }
+    getPropertyImages();
   }, []);
+
+  if (isLoading) {
+    return <LoadingCard />;
+  }
 
   return (
     <div className="PropertyCard">
@@ -43,17 +72,17 @@ export default function PropertyCard(props: PropertyInfo) {
                 loop={true}
                 modules={[Navigation]}
                 onSlideChange={(e: any) => {
-                  setSelectedImage(propertyImages[e.realIndex]);
+                  setSelectedImage(propertyImages[e.realIndex].image);
                 }}
                 className="h-full rounded-t-lg mySwiper"
               >
                 {propertyImages &&
-                  propertyImages.map((image, id) => {
+                  propertyImages.map((item, id) => {
                     return (
                       <SwiperSlide>
                         <img
                           key={id}
-                          src={image}
+                          src={item.image}
                           alt="testboom"
                           className="object-cover object-center w-full h-full"
                         />
@@ -106,23 +135,24 @@ export default function PropertyCard(props: PropertyInfo) {
                 </div>
 
                 <div className="flex gap-2">
-                  {propertyImages.map((thumbnail, index) => (
-                    <div
-                      key={index}
-                      className={`bg-gray-500 border-2 ${
-                        selectedImage === thumbnail
-                          ? "border-primary"
-                          : "border-white"
-                      } w-9 h-9`}
-                    >
-                      <img
-                        src={thumbnail}
-                        alt="image"
-                        className="object-cover h-full"
-                        onClick={() => setSelectedImage(thumbnail)}
-                      />
-                    </div>
-                  ))}
+                  {propertyImages &&
+                    propertyImages.map((thumbnail, index) => (
+                      <div
+                        key={index}
+                        className={`bg-gray-500 border-2 ${
+                          selectedImage === thumbnail.image
+                            ? "border-primary"
+                            : "border-white"
+                        } w-9 h-9`}
+                      >
+                        <img
+                          src={thumbnail.image}
+                          alt="image"
+                          className="object-cover h-full"
+                          onClick={() => setSelectedImage(thumbnail.image)}
+                        />
+                      </div>
+                    ))}
                 </div>
               </div>
               <div className="flex gap-6 pt-5 mt-4 border-t-2 border-cardBorder">
