@@ -17,6 +17,11 @@ class PropertyPaymentSchedule(models.TextChoices):
     WEEKLY = 'WEEKLY', 'Weekly'
 
 
+class PropertyTenure(models.TextChoices):
+    LEASEHOLD = 'LEASEHOLD', 'Leasehold'
+    FREEHOLD = 'FREEHOLD', 'Freehold'
+
+
 class AlphabetEnum(models.TextChoices):
     A = 'A'
     B = 'B'
