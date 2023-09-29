@@ -2,7 +2,7 @@ from django.core.paginator import Paginator
 from django.http import HttpRequest
 
 from ..models import Property
-from utils import ContractType
+from utils import PropertyContractType
 
 
 class PaginationBuilder:
@@ -10,7 +10,7 @@ class PaginationBuilder:
     @staticmethod
     def build_index_paginator(
         request: HttpRequest,
-        contract_type: ContractType
+        contract_type: PropertyContractType
     ):
         properties = Property.objects\
             .filter(contract_type=contract_type)\

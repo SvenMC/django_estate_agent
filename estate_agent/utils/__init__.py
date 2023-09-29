@@ -1,1 +1,2 @@
-from .enums import ContractType
+from .enums import PropertyContractType, PropertyPaymentSchedule, \
+    PropertyCouncilTaxBand, PropertyEpcRating, PropertyStatus

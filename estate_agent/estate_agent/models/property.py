@@ -1,6 +1,6 @@
 from django.db import models
 
-from utils import ContractType
+from utils import PropertyContractType
 
 
 class Property(models.Model):
@@ -8,4 +8,7 @@ class Property(models.Model):
     last_updated = models.DateTimeField(auto_now=True)
     address = models.CharField(max_length=150)
     description = models.TextField()
-    contract_type = models.IntegerField(choices=ContractType.choices)
+    contract_type = models.TextChoices(choices=PropertyContractType)
+    title = models.CharField(max_length=50)
+    # features
+
