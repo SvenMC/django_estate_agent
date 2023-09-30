@@ -33,6 +33,7 @@ router.register(r'rent', views.RentViewSet, basename='rent')
 router.register(r'buy', views.BuyViewSet, basename='buy')
 router.register(r'propertyImages', views.PropertyImageViewSet)
 router.register(r'propertyFloorplans', views.PropertyFloorplanViewSet)
+router.register(r'propertyCoordinates', views.PropertyCoordinatesViewSet)
 
 
 urlpatterns = [
