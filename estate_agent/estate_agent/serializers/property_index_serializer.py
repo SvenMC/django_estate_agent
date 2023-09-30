@@ -6,4 +6,16 @@ from ..models import Property
 class PropertyIndexSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Property
-        fields = ['id', 'url', 'created_at', 'last_updated', 'address']
+        fields = [
+            'id',
+            'url',
+            'created_at',
+            'last_updated',
+            'address',
+            'title',
+            'bedrooms',
+            'bathrooms',
+            'price',
+            'property_type',
+            'dimensions'
+        ]

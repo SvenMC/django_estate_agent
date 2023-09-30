@@ -5,10 +5,12 @@ from rest_framework.request import Request
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.decorators import action
 
-from .models import Property, PropertyImage
+from .models import Property, PropertyImage, PropertyFloorplan, \
+    PropertyCoordinates
 from .serializers import \
     UserSerializer, PropertiesSerializer, PropertyIndexSerializer, \
-    PropertyImageSerializer
+    PropertyImageSerializer, PropertyFloorplanSerializer, \
+    PropertyCoordinatesSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -43,6 +45,33 @@ class PropertiesViewSet(viewsets.ModelViewSet):
 
         return Response(serializer.data)
 
+    @action(detail=True, methods=['get'])
+    def floorplans(self, request: Request, pk=None):
+        queryset = PropertyFloorplan.objects.filter(property__id=pk)
+
+        serializer = PropertyFloorplanSerializer(
+            queryset, many=True, context={'request': request}
+        )
+
+        if serializer.data == []:
+            return Response(None)
+
+        return Response(serializer.data)
+
+    @action(detail=True, methods=['get'])
+    def coordinates(self, request: Request, pk=None):
+        # TODO Only one of these can exist for each property.
+        queryset = PropertyCoordinates.objects.filter(property__id=pk).first()
+
+        serializer = PropertyCoordinatesSerializer(
+            queryset, many=False, context={'request': request}
+        )
+
+        if serializer.data['coordinates'] == "":
+            return Response(None)
+
+        return Response(serializer.data)
+
 
 class RentViewSet(PropertiesViewSet):
     queryset = Property.objects.filter(contract_type=1).order_by('-created_at')
@@ -60,5 +89,25 @@ class PropertyImageViewSet(viewsets.ModelViewSet):
     """
     queryset = PropertyImage.objects.all().order_by('property_id')
     serializer_class = PropertyImageSerializer
+    permission_classes = []
+    filter_backends = [DjangoFilterBackend]
+
+
+class PropertyFloorplanViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows Property floorplans to be viewed or edited.
+    """
+    queryset = PropertyFloorplan.objects.all().order_by('property_id')
+    serializer_class = PropertyFloorplanSerializer
+    permission_classes = []
+    filter_backends = [DjangoFilterBackend]
+
+
+class PropertyCoordinatesViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows Property coordinates to be viewed or edited.
+    """
+    queryset = PropertyCoordinates.objects.all().order_by('property_id')
+    serializer_class = PropertyCoordinatesSerializer
     permission_classes = []
     filter_backends = [DjangoFilterBackend]
