@@ -71,7 +71,7 @@ class Property(models.Model):
     )
     annual_service_charge = models.FloatField(
         null=True,
-        default='£120 per year'
+        default=120.00
     )
     lease_duration = models.CharField(
         max_length=50, null=True,
