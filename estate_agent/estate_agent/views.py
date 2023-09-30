@@ -5,10 +5,10 @@ from rest_framework.request import Request
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.decorators import action
 
-from .models import Property, PropertyImage
+from .models import Property, PropertyImage, PropertyFloorplan
 from .serializers import \
     UserSerializer, PropertiesSerializer, PropertyIndexSerializer, \
-    PropertyImageSerializer
+    PropertyImageSerializer, PropertyFloorplanSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -60,5 +60,15 @@ class PropertyImageViewSet(viewsets.ModelViewSet):
     """
     queryset = PropertyImage.objects.all().order_by('property_id')
     serializer_class = PropertyImageSerializer
+    permission_classes = []
+    filter_backends = [DjangoFilterBackend]
+
+
+class PropertyFloorplanViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows Property floorplans to be viewed or edited.
+    """
+    queryset = PropertyFloorplan.objects.all().order_by('property_id')
+    serializer_class = PropertyFloorplanSerializer
     permission_classes = []
     filter_backends = [DjangoFilterBackend]
