@@ -5,10 +5,12 @@ from rest_framework.request import Request
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.decorators import action
 
-from .models import Property, PropertyImage, PropertyFloorplan
+from .models import Property, PropertyImage, PropertyFloorplan, \
+    PropertyCoordinates
 from .serializers import \
     UserSerializer, PropertiesSerializer, PropertyIndexSerializer, \
-    PropertyImageSerializer, PropertyFloorplanSerializer
+    PropertyImageSerializer, PropertyFloorplanSerializer, \
+    PropertyCoordinatesSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -70,5 +72,15 @@ class PropertyFloorplanViewSet(viewsets.ModelViewSet):
     """
     queryset = PropertyFloorplan.objects.all().order_by('property_id')
     serializer_class = PropertyFloorplanSerializer
+    permission_classes = []
+    filter_backends = [DjangoFilterBackend]
+
+
+class PropertyCoordinatesViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows Property coordinates to be viewed or edited.
+    """
+    queryset = PropertyCoordinates.objects.all().order_by('property_id')
+    serializer_class = PropertyCoordinatesSerializer
     permission_classes = []
     filter_backends = [DjangoFilterBackend]
