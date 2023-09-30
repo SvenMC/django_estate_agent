@@ -32,7 +32,7 @@ class PropertyType(models.TextChoices):
     FARM = 'FARM', 'Farm'
 
 
-class AlphabetEnum(models.TextChoices):
+class PropertyCouncilTaxBand(models.TextChoices):
     A = 'A'
     B = 'B'
     C = 'C'
@@ -40,12 +40,15 @@ class AlphabetEnum(models.TextChoices):
     E = 'E'
     F = 'F'
     G = 'G'
-
-
-class PropertyCouncilTaxBand(AlphabetEnum):
     H = 'H'
     I = 'I'
 
 
-class PropertyEpcRating(AlphabetEnum):
-    ...
+class PropertyEpcRating(models.TextChoices):
+    A = 'A'
+    B = 'B'
+    C = 'C'
+    D = 'D'
+    E = 'E'
+    F = 'F'
+    G = 'G'
