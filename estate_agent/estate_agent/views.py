@@ -45,6 +45,33 @@ class PropertiesViewSet(viewsets.ModelViewSet):
 
         return Response(serializer.data)
 
+    @action(detail=True, methods=['get'])
+    def floorplans(self, request: Request, pk=None):
+        queryset = PropertyFloorplan.objects.filter(property__id=pk)
+
+        serializer = PropertyFloorplanSerializer(
+            queryset, many=True, context={'request': request}
+        )
+
+        if serializer.data == []:
+            return Response(None)
+
+        return Response(serializer.data)
+
+    @action(detail=True, methods=['get'])
+    def coordinates(self, request: Request, pk=None):
+        # TODO Only one of these can exist for each property.
+        queryset = PropertyCoordinates.objects.filter(property__id=pk).first()
+
+        serializer = PropertyCoordinatesSerializer(
+            queryset, many=False, context={'request': request}
+        )
+
+        if serializer.data['coordinates'] == "":
+            return Response(None)
+
+        return Response(serializer.data)
+
 
 class RentViewSet(PropertiesViewSet):
     queryset = Property.objects.filter(contract_type=1).order_by('-created_at')
