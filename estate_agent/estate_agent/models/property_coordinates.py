@@ -4,7 +4,7 @@ from . import Property
 
 
 class PropertyCoordinates(models.Model):
-    property = models.ForeignKey(
+    property = models.OneToOneField(
         Property, on_delete=models.CASCADE, default=None
     )
     coordinates = models.CharField()
