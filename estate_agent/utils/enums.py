@@ -22,6 +22,16 @@ class PropertyTenure(models.TextChoices):
     FREEHOLD = 'FREEHOLD', 'Freehold'
 
 
+class PropertyType(models.TextChoices):
+    DETACHED = 'DETACHED', 'Detached'
+    SEMI_DETACHED = 'SEMI_DETACHED', 'Semi-detached'
+    TERRACED = 'TERRACED', 'Terraced'
+    FLAT = 'FLAT', 'Flat'
+    BUNGALOW = 'BUNGALOW', 'Bungalow'
+    LAND = 'LAND', 'Land'
+    FARM = 'FARM', 'Farm'
+
+
 class AlphabetEnum(models.TextChoices):
     A = 'A'
     B = 'B'
