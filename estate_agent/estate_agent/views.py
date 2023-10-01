@@ -5,6 +5,7 @@ from rest_framework.request import Request
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.decorators import action
 
+from utils import PropertyContractType
 from .models import Property, PropertyImage, PropertyFloorplan, \
     PropertyCoordinates
 from .serializers import \
@@ -74,12 +75,16 @@ class PropertiesViewSet(viewsets.ModelViewSet):
 
 
 class RentViewSet(PropertiesViewSet):
-    queryset = Property.objects.filter(contract_type=1).order_by('-created_at')
+    queryset = Property.objects.filter(
+        contract_type=PropertyContractType.RENT
+    ).order_by('-created_at')
     serializer_class = PropertyIndexSerializer
 
 
 class BuyViewSet(PropertiesViewSet):
-    queryset = Property.objects.filter(contract_type=2).order_by('-created_at')
+    queryset = Property.objects.filter(
+        contract_type=PropertyContractType.BUY
+    ).order_by('-created_at')
     serializer_class = PropertyIndexSerializer
 
 
