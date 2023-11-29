@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import {
@@ -163,7 +163,7 @@ export default function PropertyCard(props: PropertyInfo) {
                 </div>
                 <div className="flex items-center gap-2 text-sm font-medium text-gray-500">
                   <MdOutlineDescription size={24} className="text-primary" />
-                  Type goes here
+                  5&nbsp;x&nbsp;7m²
                 </div>
               </div>
             </div>
