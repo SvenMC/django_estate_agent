@@ -60,7 +60,7 @@ export default function PropertyCard(props: PropertyInfo) {
   }
 
   return (
-    <div className="PropertyCard">
+    <div className="PropertyCard -z-10">
       <Link to={`/property/${props.id}/`}>
         <div className="w-full transition-colors bg-white rounded-lg shadow">
           <div className="rounded-t-lg h-[300px]">
@@ -153,7 +153,7 @@ export default function PropertyCard(props: PropertyInfo) {
                     ))}
                 </div>
               </div>
-              <div className="flex gap-6 pt-5 mt-4 border-t-2 border-cardBorder">
+              <div className="flex flex-wrap gap-6 pt-5 mt-4 border-t-2 border-cardBorder">
                 <div className="flex items-center gap-2 text-sm font-medium text-gray-500">
                   <MdOutlineBed size={24} className="text-primary" />2 Beds
                 </div>

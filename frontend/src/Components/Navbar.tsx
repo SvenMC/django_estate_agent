@@ -1,15 +1,25 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import LOGO from "../assets/LOGO.png";
 import { NavLink } from "react-router-dom";
+import MenuIcon from "../assets/menu.svg";
+import CloseIcon from "../assets/close.svg";
+
+const menuStyles =
+  "hover:text-cyan-600 transition-colors lg:text-base text-lg px-4 py-3 rounded-md flex items-center";
+const activeStyles = "text-primary bg-secondary transition-colors duration-300";
 
 export default function Navbar() {
-  const menuStyles =
-    "hover:text-cyan-600 transition-colors text-base px-4 py-3 rounded-md flex items-center";
-  const activeStyles =
-    "text-primary bg-secondary transition-colors duration-300";
-
   return (
-    <div className="flex w-full bg-white h-[95px] items-center px-10 drop-shadow-sm">
+    <>
+      <DesktopNavbar />
+      <MobileNavbar />
+    </>
+  );
+}
+
+function DesktopNavbar() {
+  return (
+    <div className="hidden lg:flex w-full bg-white h-[95px] items-center px-10 drop-shadow-sm">
       <NavLink to={`/`} className="mr-6 h-100">
         <img src={LOGO} alt="logo" className="h-[41px] max-w-none" />
       </NavLink>
@@ -84,6 +94,107 @@ export default function Navbar() {
           Sign up
         </button>
       </div>
+    </div>
+  );
+}
+
+function MobileNavbar() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const handleMenu = (value: boolean) => {
+    setIsMenuOpen(value);
+    document.body.style.overflow = value ? "hidden" : "unset";
+  };
+
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, []);
+
+  return (
+    <div className="flex justify-between lg:hidden w-full bg-white h-[95px] items-center px-10 drop-shadow-sm">
+      <NavLink to={`/`} className="mr-6 h-100">
+        <img src={LOGO} alt="logo" className="h-[41px] max-w-none" />
+      </NavLink>
+      <button onClick={() => handleMenu(true)}>
+        <img src={MenuIcon} alt="Menu button" />
+      </button>
+      {isMenuOpen && (
+        <div className="fixed top-0 left-0 flex items-start justify-between w-full h-screen px-10 bg-white py-9">
+          <div>
+            <div className="flex flex-col gap-8">
+              <NavLink
+                to={`/`}
+                onClick={() => handleMenu(false)}
+                className={({ isActive, isPending }) =>
+                  isPending
+                    ? "pending"
+                    : isActive
+                    ? `${activeStyles} ${menuStyles}`
+                    : menuStyles
+                }
+              >
+                Home
+              </NavLink>
+              <NavLink
+                to={`/rent/`}
+                onClick={() => handleMenu(false)}
+                className={({ isActive, isPending }) =>
+                  isPending
+                    ? "pending"
+                    : isActive
+                    ? `${activeStyles} ${menuStyles}`
+                    : menuStyles
+                }
+              >
+                Rent
+              </NavLink>
+              <NavLink
+                to={`/buy/`}
+                onClick={() => handleMenu(false)}
+                className={({ isActive, isPending }) =>
+                  isPending
+                    ? "pending"
+                    : isActive
+                    ? `${activeStyles} ${menuStyles}`
+                    : menuStyles
+                }
+              >
+                Buy
+              </NavLink>
+              <NavLink
+                to={`/property/12/`}
+                onClick={() => handleMenu(false)}
+                className={({ isActive, isPending }) =>
+                  isPending
+                    ? "pending"
+                    : isActive
+                    ? `${activeStyles} ${menuStyles}`
+                    : menuStyles
+                }
+              >
+                Property 12
+              </NavLink>
+              {/* This is temporary */}
+              <NavLink
+                to={`/property/add/`}
+                onClick={() => handleMenu(false)}
+                className={({ isActive, isPending }) =>
+                  isPending
+                    ? "pending"
+                    : isActive
+                    ? `${activeStyles} ${menuStyles}`
+                    : menuStyles
+                }
+              >
+                Add Property
+              </NavLink>
+            </div>
+          </div>
+          <button onClick={() => handleMenu(false)}>
+            <img src={CloseIcon} alt="close button" />
+          </button>
+        </div>
+      )}
     </div>
   );
 }
