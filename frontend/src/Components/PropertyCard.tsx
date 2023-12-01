@@ -20,7 +20,13 @@ import "../Styles/PropertyCard.css";
 
 interface PropertyInfo {
   id: number;
-  address: string;
+  propertyTitle?: string | null;
+  propertyAddress?: string | null;
+  propertyPrice?: number | null;
+  propertyPaymentSchedule?: string | null;
+  propertyBedrooms?: number | null;
+  propertyBathrooms?: number | null;
+  propertyDimensions?: string | null;
 }
 
 interface PropertyImage {
@@ -32,9 +38,22 @@ interface PropertyImage {
 }
 
 export default function PropertyCard(props: PropertyInfo) {
-  const [isLoading, setIsLoading] = useState<Boolean>(false);
+  const {
+    propertyTitle,
+    propertyAddress,
+    propertyPrice,
+    propertyPaymentSchedule,
+    propertyBedrooms,
+    propertyBathrooms,
+    propertyDimensions,
+  } = props;
+  const [isLoading, setIsLoading] = useState<Boolean>(true);
   const [propertyImages, setPropertyImages] = useState<PropertyImage[]>([]);
   const [selectedImage, setSelectedImage] = useState<String>("");
+
+  function numberWithCommas(x: number) {
+    return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+  }
 
   const getPropertyImages = async () => {
     const url = `${base_api}api/properties/${props.id}/images/`;
@@ -51,7 +70,6 @@ export default function PropertyCard(props: PropertyInfo) {
   };
 
   useEffect(() => {
-    setIsLoading(true);
     getPropertyImages();
   }, []);
 
@@ -60,7 +78,7 @@ export default function PropertyCard(props: PropertyInfo) {
   }
 
   return (
-    <div className="PropertyCard -z-10">
+    <div className="PropertyCard" id="property_card">
       <Link to={`/property/${props.id}/`}>
         <div className="w-full transition-colors bg-white rounded-lg shadow">
           <div className="rounded-t-lg h-[300px]">
@@ -112,9 +130,12 @@ export default function PropertyCard(props: PropertyInfo) {
             <div className="px-6 py-4">
               <div className="flex items-center">
                 <div className="flex items-center flex-1 gap-1 text-2xl font-bold text-primary">
-                  £5,555
+                  £
+                  {propertyPrice && propertyPrice > 0
+                    ? numberWithCommas(propertyPrice)
+                    : "5,555"}
                   <span className="text-sm font-medium text-gray-400">
-                    /month
+                    /{propertyPaymentSchedule == "MONTHLY" ? "month" : "week"}
                   </span>
                 </div>
                 <div>
@@ -126,9 +147,15 @@ export default function PropertyCard(props: PropertyInfo) {
 
               <div className="flex items-end justify-between">
                 <div className="grid gap-1.5">
-                  <div className="text-2xl font-bold">Westerville Street</div>
+                  <div className="text-2xl font-bold">
+                    {propertyTitle && propertyTitle.length > 0
+                      ? propertyTitle
+                      : "Westerville Street"}
+                  </div>
                   <p className="text-base font-normal text-gray-400">
-                    7938 Jockey Hollow Dr.Pewaukee
+                    {propertyAddress && propertyAddress?.length > 0
+                      ? propertyAddress
+                      : "7938 Jockey Hollow Dr.Pewaukee"}
                   </p>
                 </div>
 
@@ -155,15 +182,18 @@ export default function PropertyCard(props: PropertyInfo) {
               </div>
               <div className="flex flex-wrap gap-6 pt-5 mt-4 border-t-2 border-cardBorder">
                 <div className="flex items-center gap-2 text-sm font-medium text-gray-500">
-                  <MdOutlineBed size={24} className="text-primary" />2 Beds
+                  <MdOutlineBed size={24} className="text-primary" />
+                  {propertyBedrooms ?? "2"} Beds
                 </div>
                 <div className="flex items-center gap-2 text-sm font-medium text-gray-500">
-                  <MdOutlineBathtub size={24} className="text-primary" />2
-                  Bathrooms
+                  <MdOutlineBathtub size={24} className="text-primary" />
+                  {propertyBathrooms ?? "2"} Bathrooms
                 </div>
                 <div className="flex items-center gap-2 text-sm font-medium text-gray-500">
                   <MdOutlineDescription size={24} className="text-primary" />
-                  5&nbsp;x&nbsp;7m²
+                  {propertyDimensions && propertyDimensions.length > 0
+                    ? propertyDimensions
+                    : "5x7m²"}
                 </div>
               </div>
             </div>

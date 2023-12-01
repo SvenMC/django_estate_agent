@@ -1,6 +1,12 @@
 import { InputSelect } from "./Fields";
 
-export default function StatusForm() {
+enum StatusType {
+  AVAILABLE = "AVAILABLE",
+  SOLD = "SOLD",
+  DELISTED = "DELISTED",
+}
+
+export default function StatusForm({ handleChange }: any) {
   return (
     <section className="bg-white border border-gray-300 rounded-lg shadow-sm">
       <div className="p-6 mx-auto ">
@@ -14,7 +20,16 @@ export default function StatusForm() {
           <div className="w-[15px] h-[15px] bg-[#1CD867] rounded-full" />
         </div>
         <div>
-          <InputSelect label="" options={["Published", "Unpublished"]} />
+          <InputSelect
+            name="status"
+            label=""
+            options={[
+              StatusType.AVAILABLE,
+              StatusType.SOLD,
+              StatusType.DELISTED,
+            ]}
+            onChange={handleChange}
+          />
         </div>
       </div>
     </section>

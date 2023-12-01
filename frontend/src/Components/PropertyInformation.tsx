@@ -1,41 +1,8 @@
 import axios from "axios";
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import base_api from "../config";
 import { InputField, InputSelect, InputTextArea } from "./Fields";
-interface PropertyFormElements extends HTMLFormControlsCollection {
-  address: HTMLInputElement;
-  contract: HTMLInputElement;
-  description: HTMLInputElement;
-}
 
-interface PropertyFormElement extends HTMLFormElement {
-  readonly elements: PropertyFormElements;
-}
-
-export default function PropertyInformation() {
-  const navigate = useNavigate();
-
-  function handleSubmit(event: React.FormEvent<PropertyFormElement>) {
-    event.preventDefault();
-
-    const form = event.currentTarget.elements;
-    const url = `${base_api}api/properties/`;
-
-    axios
-      .post(url, {
-        address: form.address.value,
-        description: form.description.value,
-        contract_type: form.contract.value,
-      })
-      .then(function (response) {
-        navigate(`/property/${response.data.id}/`);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }
-
+export default function PropertyInformation({ handleChange }: any) {
   return (
     <section className="bg-white border border-gray-300 rounded-lg shadow-sm">
       <div className="p-6 mx-auto ">
@@ -48,51 +15,56 @@ export default function PropertyInformation() {
           </p>
         </div>
 
-        <form onSubmit={handleSubmit}>
+        <form>
           <div className="grid grid-cols-2 gap-4">
             <InputField
               name="title"
               label="Title"
+              type="text"
               placeholder="Name of the Property"
               required={false}
+              onChange={handleChange}
             />
             <InputField
               name="address"
               label="Address"
+              type="text"
               placeholder="10 Downing Street, SW1A 2AA"
               required={false}
+              onChange={handleChange}
             />
             <div className="col-span-2">
               <InputTextArea
+                name="description"
                 label="Description"
                 placeholder="Your property description"
+                onChange={handleChange}
               />
             </div>
             <div className="grid w-full grid-cols-3 col-span-2 gap-4">
               <InputField
                 name="bedrooms"
                 label="No. of Bedrooms"
+                type="number"
                 required={false}
+                onChange={handleChange}
               />
               <InputField
                 name="bathrooms"
                 label="No. of Bathrooms"
+                type="number"
                 required={false}
+                onChange={handleChange}
               />
               <InputField
                 name="dimensions"
                 label="Dimensions"
+                type="text"
                 required={false}
+                onChange={handleChange}
               />
             </div>
-            <InputSelect label="Contract Type" options={["Rent", "Sale"]} />
           </div>
-          <button
-            type="submit"
-            className="px-5 py-2.5 mt-4 text-md font-medium text-center text-white bg-cyan-500 rounded-lg"
-          >
-            Add property
-          </button>
         </form>
       </div>
     </section>

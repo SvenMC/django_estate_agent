@@ -10,5 +10,10 @@ export type PropertyIndexItemsTypes = {
   url: string;
   created_at: string;
   last_updated: string;
+  title: string;
   address: string;
+  price: number;
+  bathrooms: number;
+  bedrooms: number;
+  dimensions: string;
 };

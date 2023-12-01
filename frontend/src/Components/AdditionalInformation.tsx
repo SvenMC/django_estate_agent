@@ -1,51 +1,18 @@
-import axios from "axios";
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import base_api from "../config";
-import { InputField } from "./Fields";
-interface PropertyFormElements extends HTMLFormControlsCollection {
-  address: HTMLInputElement;
-  contract: HTMLInputElement;
-  description: HTMLInputElement;
+import { InputField, InputSelect } from "./Fields";
+
+enum LetterRating {
+  A = "A",
+  B = "B",
+  C = "C",
+  D = "D",
+  E = "E",
+  F = "F",
+  G = "G",
+  H = "H",
+  I = "I",
 }
 
-interface PropertyFormElement extends HTMLFormElement {
-  readonly elements: PropertyFormElements;
-}
-
-interface inputFiledProps {
-  name?: string;
-  label?: string;
-  placeholder?: string;
-  required?: boolean;
-}
-
-const inputStyles =
-  "block w-full p-3 text-sm text-gray-700 border border-gray-400 rounded outline-2 focus:outline focus:outline-primary";
-
-export default function AdditionalInformation() {
-  const navigate = useNavigate();
-
-  function handleSubmit(event: React.FormEvent<PropertyFormElement>) {
-    event.preventDefault();
-
-    const form = event.currentTarget.elements;
-    const url = `${base_api}api/properties/`;
-
-    axios
-      .post(url, {
-        address: form.address.value,
-        description: form.description.value,
-        contract_type: form.contract.value,
-      })
-      .then(function (response) {
-        navigate(`/property/${response.data.id}/`);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }
-
+export default function AdditionalInformation({ handleChange }: any) {
   return (
     <section className="bg-white border border-gray-300 rounded-lg shadow-sm">
       <div className="p-6 mx-auto ">
@@ -57,47 +24,67 @@ export default function AdditionalInformation() {
             Additional information
           </p>
         </div>
-
-        <form onSubmit={handleSubmit}>
+        <form>
           <div className="grid grid-cols-2 gap-4">
             <div className="grid w-full grid-cols-3 col-span-2 gap-4">
-              <InputField name="tenure" label="Tenure" required={false} />
               <InputField
-                name="groundrent"
-                label="Ground rent"
+                name="tenure"
+                label="Tenure"
                 required={false}
+                onChange={handleChange}
               />
               <InputField
-                name="annualservicecharge"
+                name="groundRent"
+                label="Ground rent"
+                required={false}
+                onChange={handleChange}
+              />
+              <InputField
+                name="annualServiceCharge"
                 label="Annual service charge"
                 required={false}
+                onChange={handleChange}
               />
             </div>
             <div className="grid w-full grid-cols-3 col-span-2 gap-4">
               <InputField
-                name="lease"
+                name="leaseDuration"
                 label="Lease duration"
                 required={false}
+                onChange={handleChange}
               />
-              <InputField
-                name="counciltaxband"
+              <InputSelect
+                name="councilTaxBand"
                 label="Council tax band"
-                required={false}
+                options={[
+                  LetterRating.A,
+                  LetterRating.B,
+                  LetterRating.C,
+                  LetterRating.D,
+                  LetterRating.E,
+                  LetterRating.F,
+                  LetterRating.G,
+                  LetterRating.H,
+                  LetterRating.I,
+                ]}
+                onChange={handleChange}
               />
-              <InputField
-                name="EPC Rating"
+              <InputSelect
+                name="epcRating"
                 label="EPC Rating"
-                required={false}
+                options={[
+                  LetterRating.A,
+                  LetterRating.B,
+                  LetterRating.C,
+                  LetterRating.D,
+                  LetterRating.E,
+                  LetterRating.F,
+                  LetterRating.G,
+                ]}
+                onChange={handleChange}
               />
             </div>
-            {/* <InputSelect label="Contract Type" options={["Rent", "Sale"]} /> */}
           </div>
-          {/* <button
-              type="submit"
-              className="px-5 py-2.5 mt-4 text-md font-medium text-center text-white bg-cyan-500 rounded-lg"
-            >
-              Add property
-            </button> */}
         </form>
       </div>
     </section>

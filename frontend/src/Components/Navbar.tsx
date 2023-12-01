@@ -102,8 +102,20 @@ function MobileNavbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleMenu = (value: boolean) => {
+    // Hides and Shows the MobileNavbar //
     setIsMenuOpen(value);
-    document.body.style.overflow = value ? "hidden" : "unset";
+    var Card = document.getElementsByClassName("PropertyCard");
+    if (value) {
+      document.body.style.overflow = "hidden";
+      for (var i = 0; i < Card.length; i++) {
+        Card[i]?.classList.add("-z-10"); // Sets the Z-Index of the PropertyCard to -10 to prevent popping up when menu is open
+      }
+    } else {
+      document.body.style.overflow = "unset";
+      for (var i = 0; i < Card.length; i++) {
+        Card[i]?.classList.remove("-z-10"); // Removes Z-Index when menu is closed
+      }
+    }
   };
 
   useEffect(() => {

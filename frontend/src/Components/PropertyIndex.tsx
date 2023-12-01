@@ -39,7 +39,12 @@ export default function PropertyIndex(props: PropsType) {
             <PropertyCard
               id={property.id}
               key={id}
-              address={property.address}
+              propertyTitle={property.title}
+              propertyAddress={property.address}
+              propertyPrice={property.price}
+              propertyBathrooms={property.bathrooms}
+              propertyBedrooms={property.bedrooms}
+              propertyDimensions={property.dimensions}
             />
           );
         })}

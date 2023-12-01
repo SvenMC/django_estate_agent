@@ -1,8 +1,10 @@
 interface inputFiledProps {
   name?: string;
   label?: string;
+  type?: string;
   placeholder?: string;
   required?: boolean;
+  onChange?: (event: any) => void;
 }
 
 const inputStyles =
@@ -11,9 +13,14 @@ const inputStyles =
 export function InputField({
   name = "",
   label = "",
+  type,
   placeholder = "",
   required = false,
+  onChange,
 }: inputFiledProps) {
+  // const debouncedOnChange = debounce(onChange, 500);
+  // LOOK INTO A DEBOUNCE FUNCTION FOR THIS //
+
   return (
     <div className="w-full">
       <label
@@ -23,23 +30,29 @@ export function InputField({
         {label}
       </label>
       <input
-        type="text"
+        type={type}
         name={name}
         id={name}
+        min={0}
         className={inputStyles}
         placeholder={placeholder}
         required={required}
+        onChange={onChange}
       ></input>
     </div>
   );
 }
 
 export function InputTextArea({
+  name,
   label,
   placeholder,
+  onChange,
 }: {
+  name?: string;
   label: string;
   placeholder: string;
+  onChange?: (event: any) => void;
 }) {
   return (
     <div className="w-full">
@@ -47,20 +60,27 @@ export function InputTextArea({
         {label}
       </label>
       <textarea
+        name={name}
+        id={name}
         rows={8}
         className={inputStyles}
         placeholder={placeholder}
+        onChange={onChange}
       ></textarea>
     </div>
   );
 }
 
 export function InputSelect({
+  name,
   label = "",
   options,
+  onChange,
 }: {
+  name?: string;
   label: string;
   options: string[];
+  onChange?: (event: any) => void;
 }) {
   return (
     <div className="w-full">
@@ -70,9 +90,19 @@ export function InputSelect({
         </label>
       )}
 
-      <select className={inputStyles}>
+      <select
+        name={name}
+        defaultValue={""}
+        className={inputStyles}
+        onChange={onChange}
+      >
+        <option value="" disabled hidden>
+          Choose here
+        </option>
         {options.map((item: string, index: number) => (
-          <option value={index + 1}>{item}</option>
+          <option key={index} value={item}>
+            {item}
+          </option>
         ))}
       </select>
     </div>
