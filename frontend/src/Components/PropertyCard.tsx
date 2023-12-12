@@ -117,7 +117,7 @@ export default function PropertyCard(props: PropertyInfo) {
           <div className="relative border rounded-b-lg border-cardBorder">
             <div
               style={{ top: "calc(0px - 16px)" }}
-              className="absolute z-50 -left-3"
+              className="absolute z-30 -left-3"
             >
               <div className="flex items-center h-8 gap-1 pl-5 pr-4 text-[13px] font-semibold text-white uppercase rounded-r-lg rounded-tl-lg bg-primary">
                 <BsStars size={12} />
@@ -135,7 +135,7 @@ export default function PropertyCard(props: PropertyInfo) {
                     ? numberWithCommas(propertyPrice)
                     : "5,555"}
                   <span className="text-sm font-medium text-gray-400">
-                    /{propertyPaymentSchedule == "MONTHLY" ? "month" : "week"}
+                    /{propertyPaymentSchedule === "MONTHLY" ? "month" : "week"}
                   </span>
                 </div>
                 <div>
@@ -147,7 +147,7 @@ export default function PropertyCard(props: PropertyInfo) {
 
               <div className="flex items-end justify-between">
                 <div className="grid gap-1.5">
-                  <div className="text-2xl font-bold">
+                  <div className="text-2xl font-bold text-black">
                     {propertyTitle && propertyTitle.length > 0
                       ? propertyTitle
                       : "Westerville Street"}
@@ -172,7 +172,7 @@ export default function PropertyCard(props: PropertyInfo) {
                       >
                         <img
                           src={thumbnail.image}
-                          alt="image"
+                          alt={thumbnail.image}
                           className="object-cover h-full"
                           onClick={() => setSelectedImage(thumbnail.image)}
                         />

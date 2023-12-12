@@ -27,10 +27,10 @@ export default function AdditionalInformation({ handleChange }: any) {
         <form>
           <div className="grid grid-cols-2 gap-4">
             <div className="grid w-full grid-cols-3 col-span-2 gap-4">
-              <InputField
+              <InputSelect
                 name="tenure"
                 label="Tenure"
-                required={false}
+                options={["LEASEHOLD", "FREEHOLD"]}
                 onChange={handleChange}
               />
               <InputField

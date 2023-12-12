@@ -50,8 +50,8 @@ export function InputTextArea({
   onChange,
 }: {
   name?: string;
-  label: string;
-  placeholder: string;
+  label?: string;
+  placeholder?: string;
   onChange?: (event: any) => void;
 }) {
   return (
@@ -63,7 +63,7 @@ export function InputTextArea({
         name={name}
         id={name}
         rows={8}
-        className={inputStyles}
+        className={`${inputStyles} resize-none`}
         placeholder={placeholder}
         onChange={onChange}
       ></textarea>

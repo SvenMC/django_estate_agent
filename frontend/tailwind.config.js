@@ -13,8 +13,8 @@ module.exports = {
         secondaryHover: "#E1F3FA",
         tertiary: "#007AA5",
         cardBorder: "#C6EAF5",
+        black: "#001A29",
       },
     },
   },
-  plugins: [],
 };

@@ -1,6 +1,4 @@
-import axios from "axios";
-import React from "react";
-import { InputField, InputSelect, InputTextArea } from "./Fields";
+import { InputField, InputTextArea } from "./Fields";
 
 export default function PropertyInformation({ handleChange }: any) {
   return (

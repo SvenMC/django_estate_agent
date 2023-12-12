@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import LOGO from "../assets/LOGO.png";
+import LOGO from "../assets/logos/LOGO.png";
 import { NavLink } from "react-router-dom";
 import MenuIcon from "../assets/menu.svg";
 import CloseIcon from "../assets/close.svg";
 
 const menuStyles =
-  "hover:text-cyan-600 transition-colors lg:text-base text-lg px-4 py-3 rounded-md flex items-center";
-const activeStyles = "text-primary bg-secondary transition-colors duration-300";
+  "hover:text-cyan-600 transition-all lg:text-base text-lg px-4 py-3 rounded-md flex items-center";
+const activeStyles = "text-primary bg-secondary transition-all duration-300";
 
 export default function Navbar() {
   return (
@@ -60,18 +60,6 @@ function DesktopNavbar() {
         >
           Buy
         </NavLink>
-        <NavLink
-          to={`/property/12/`}
-          className={({ isActive, isPending }) =>
-            isPending
-              ? "pending"
-              : isActive
-              ? `${activeStyles} ${menuStyles}`
-              : menuStyles
-          }
-        >
-          Property 12
-        </NavLink>
         {/* This is temporary */}
         <NavLink
           to={`/property/add/`}
@@ -107,12 +95,12 @@ function MobileNavbar() {
     var Card = document.getElementsByClassName("PropertyCard");
     if (value) {
       document.body.style.overflow = "hidden";
-      for (var i = 0; i < Card.length; i++) {
+      for (let i = 0; i < Card.length; i++) {
         Card[i]?.classList.add("-z-10"); // Sets the Z-Index of the PropertyCard to -10 to prevent popping up when menu is open
       }
     } else {
       document.body.style.overflow = "unset";
-      for (var i = 0; i < Card.length; i++) {
+      for (let i = 0; i < Card.length; i++) {
         Card[i]?.classList.remove("-z-10"); // Removes Z-Index when menu is closed
       }
     }
@@ -172,19 +160,6 @@ function MobileNavbar() {
                 }
               >
                 Buy
-              </NavLink>
-              <NavLink
-                to={`/property/12/`}
-                onClick={() => handleMenu(false)}
-                className={({ isActive, isPending }) =>
-                  isPending
-                    ? "pending"
-                    : isActive
-                    ? `${activeStyles} ${menuStyles}`
-                    : menuStyles
-                }
-              >
-                Property 12
               </NavLink>
               {/* This is temporary */}
               <NavLink
