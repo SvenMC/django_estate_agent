@@ -12,6 +12,7 @@ from .serializers import \
     UserSerializer, PropertiesSerializer, PropertyIndexSerializer, \
     PropertyImageSerializer, PropertyFloorplanSerializer, \
     PropertyCoordinatesSerializer
+from .pagination import MapIndexPagination
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -117,3 +118,4 @@ class PropertyCoordinatesViewSet(viewsets.ModelViewSet):
     serializer_class = PropertyCoordinatesSerializer
     permission_classes = []
     filter_backends = [DjangoFilterBackend]
+    pagination_class = MapIndexPagination
