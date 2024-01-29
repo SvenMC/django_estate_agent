@@ -68,7 +68,8 @@ class PropertiesViewSet(viewsets.ModelViewSet):
             queryset, many=False, context={'request': request}
         )
 
-        if serializer.data['coordinates'] == "":
+        if serializer.data['longitude'] is None \
+            or serializer.data['latitude'] is None:
             return Response(None)
 
         return Response(serializer.data)
