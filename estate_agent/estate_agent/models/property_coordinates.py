@@ -7,4 +7,11 @@ class PropertyCoordinates(models.Model):
     property = models.OneToOneField(
         Property, on_delete=models.CASCADE, default=None
     )
-    coordinates = models.CharField()
+    longitude = models.FloatField(
+        null=True,
+        default=None
+    )
+    latitude = models.FloatField(
+        null=True,
+        default=None
+    )
