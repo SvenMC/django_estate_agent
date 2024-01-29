@@ -21,8 +21,8 @@ export default async function GenerateMapMarkers(map: maplibregl.Map) {
 
   properties.map((property, id) => {
     const el = document.createElement("div");
-    el.className = `house-marker-${property.property_id}`;
-    el.innerHTML = `<img src="${config.mapHouseIconUrl}" alt="house-marker-${property.property_id}" />`;
+    el.className = `house-marker-${id}`;
+    el.innerHTML = `<img src="${config.mapHouseIconUrl}" alt="house-marker-${id}" />`;
 
     const marker = new maplibregl.Marker({
       element: el,
