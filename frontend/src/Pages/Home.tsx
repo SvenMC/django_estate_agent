@@ -1,12 +1,10 @@
-import React from "react";
-import config from "../config";
+import MapIndex from "../Components/MapIndex";
 
 export default function Home() {
-
-  console.log(config.mapApiKey)
   return (
     <div className="Home">
       <h1 className="text-4xl">Home page</h1>
+      <MapIndex/>
     </div>
   );
 }
