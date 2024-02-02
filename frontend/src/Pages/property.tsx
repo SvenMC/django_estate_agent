@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import base_api from "../config";
+import config from "../config";
 import { PropertyData } from "../Types/PropertyData";
 import { useParams } from "react-router-dom";
 
@@ -9,7 +9,7 @@ function Property() {
   const [property, setProperty] = useState<PropertyData | null>(null);
 
   useEffect(() => {
-    const url = `${base_api}api/properties/${id}/`;
+    const url = `${config.baseApiUrl}api/properties/${id}/`;
 
     axios
       .get<PropertyData>(url)

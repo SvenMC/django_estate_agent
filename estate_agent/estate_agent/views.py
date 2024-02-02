@@ -12,6 +12,7 @@ from .serializers import \
     UserSerializer, PropertiesSerializer, PropertyIndexSerializer, \
     PropertyImageSerializer, PropertyFloorplanSerializer, \
     PropertyCoordinatesSerializer
+from .pagination import MapIndexPagination
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -68,7 +69,8 @@ class PropertiesViewSet(viewsets.ModelViewSet):
             queryset, many=False, context={'request': request}
         )
 
-        if serializer.data['coordinates'] == "":
+        if serializer.data['longitude'] is None \
+            or serializer.data['latitude'] is None:
             return Response(None)
 
         return Response(serializer.data)
@@ -116,3 +118,4 @@ class PropertyCoordinatesViewSet(viewsets.ModelViewSet):
     serializer_class = PropertyCoordinatesSerializer
     permission_classes = []
     filter_backends = [DjangoFilterBackend]
+    pagination_class = MapIndexPagination

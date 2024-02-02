@@ -12,7 +12,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import { BsStars } from "react-icons/bs";
-import base_api from "../config";
+import config from "../config";
 import DefaultImage from "../assets/placeholder.jpg";
 import LoadingCard from "./LoadingCard";
 
@@ -56,7 +56,7 @@ export default function PropertyCard(props: PropertyInfo) {
   }
 
   const getPropertyImages = async () => {
-    const url = `${base_api}api/properties/${props.id}/images/`;
+    const url = `${config.baseApiUrl}api/properties/${props.id}/images/`;
 
     axios
       .get(url)

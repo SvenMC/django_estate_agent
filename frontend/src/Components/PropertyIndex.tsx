@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import base_api from "../config";
+import config from "../config";
 import {
   PropertyIndexTypes,
   PropertyIndexItemsTypes,
@@ -17,7 +17,7 @@ export default function PropertyIndex(props: PropsType) {
   let propertyType = props.propertyType;
 
   useEffect(() => {
-    const url = `${base_api}api/${propertyType}/`;
+    const url = `${config.baseApiUrl}api/${propertyType}/`;
 
     axios
       .get<PropertyIndexTypes>(url)

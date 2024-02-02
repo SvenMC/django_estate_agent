@@ -11,4 +11,5 @@ class PropertyCoordinatesSerializer(serializers.HyperlinkedModelSerializer):
         exclude = []
 
     def get_property_id(self, obj: PropertyCoordinates):
+        # TODO This is slowing down the request 
         return obj.property.pk

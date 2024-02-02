@@ -8,7 +8,7 @@ import StatusForm from "../Components/StatusForm";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import base_api from "../config";
+import config from "../config";
 
 interface PropertyFormElements extends HTMLFormControlsCollection {
   address: HTMLInputElement;
@@ -52,7 +52,7 @@ export default function PropertyAdd() {
   const handleSubmit = (event: React.FormEvent<PropertyFormElement>) => {
     event.preventDefault();
 
-    const url = `${base_api}api/properties/`;
+    const url = `${config.baseApiUrl}api/properties/`;
 
     console.log(event);
 
