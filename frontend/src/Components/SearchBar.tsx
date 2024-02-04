@@ -6,7 +6,7 @@ export default function SearchBar() {
   return (
     <div
       id="SearchBar"
-      className={`sticky top-0 z-50 h-full mb-12 bg-blue-100 shadow-sm`}
+      // className={`sticky top-0 z-50 h-full mb-12 bg-blue-100 shadow-sm`}
     >
       <div className="flex items-center justify-between min-h-[104px] max-w-screen-xl mx-auto bg-white px-8 rounded-lg shadow-sm">
         <LocationFilter />
