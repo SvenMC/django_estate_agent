@@ -114,7 +114,7 @@ class PropertyCoordinatesViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows Property coordinates to be viewed or edited.
     """
-    queryset = PropertyCoordinates.objects.all().order_by('property_id')
+    queryset = PropertyCoordinates.objects.all()
     serializer_class = PropertyCoordinatesSerializer
     permission_classes = []
     filter_backends = [DjangoFilterBackend]

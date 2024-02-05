@@ -5,7 +5,7 @@ from . import Property
 
 class PropertyCoordinates(models.Model):
     property = models.OneToOneField(
-        Property, on_delete=models.CASCADE, default=None
+        Property, on_delete=models.CASCADE, null=False, to_field='id'
     )
     longitude = models.FloatField(
         null=True,
