@@ -29,7 +29,7 @@ export default function ServiceSection() {
   return (
     <section className="flex z-10 bg-gradient-to-b from-white relative after:bg-[#D9EFF7] after:absolute after:inset-0 after:w-full after:-skew-y-[4deg] after:-z-[1] items-center  py-[150px]">
       <div className="flex items-center justify-center w-full max-w-screen-xl mx-auto">
-        <div className="flex flex-col justify-between w-full gap-10 md:flex-row">
+        <div className="flex flex-row flex-wrap justify-center w-full gap-y-20 gap-x-10 lg:gap-10 lg:flex-nowrap lg:justify-between">
           {Services.map((service, index) => {
             return <ServiceItem key={index + service.title} {...service} />;
           })}
