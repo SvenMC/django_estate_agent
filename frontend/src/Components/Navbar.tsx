@@ -10,10 +10,10 @@ const activeStyles = "text-primary bg-secondary transition-all duration-300";
 
 export default function Navbar() {
   return (
-    <>
+    <header>
       <DesktopNavbar />
       <MobileNavbar />
-    </>
+    </header>
   );
 }
 

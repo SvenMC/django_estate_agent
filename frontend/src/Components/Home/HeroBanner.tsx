@@ -11,7 +11,7 @@ export default function HeroBanner() {
             Over <span className="text-primary">25 Years</span>
           </h1>
           <p className="text-xl">Your Premier Property Management Choice.</p>
-          <div className="mt-12 shadow-lg">
+          <div className="mt-12">
             <SearchBar />
           </div>
         </div>

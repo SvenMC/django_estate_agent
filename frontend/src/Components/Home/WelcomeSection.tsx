@@ -3,7 +3,7 @@ import HouseVector from "../../assets/Home/Welcome/House_Icon.svg";
 export default function WelcomeSection() {
   return (
     <section className="flex items-center bg-white py-[150px]">
-      <div className="flex items-center justify-center max-w-screen-xl gap-10 mx-auto">
+      <div className="flex flex-col items-center justify-center max-w-screen-xl gap-10 px-8 mx-auto md:flex-row">
         <div className="flex-1">
           <h1 className="text-[40px] font-bold leading-[48px] mb-4">
             Welcome to <br />
