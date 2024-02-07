@@ -101,6 +101,7 @@ export default function PropertyCard(props: PropertyInfo) {
                           src={item.image}
                           alt="testboom"
                           className="object-cover object-center w-full h-full"
+                          loading="lazy"
                         />
                       </SwiperSlide>
                     );

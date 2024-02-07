@@ -16,6 +16,7 @@
 body {
   background-color: #f5f7f7;
   font-family: "Inter", sans-serif;
+  overscroll-behavior-y: none;
 }
 
 .swiper-button-prev.swiper-button-prev,

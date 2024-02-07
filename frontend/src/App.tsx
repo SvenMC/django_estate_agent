@@ -5,7 +5,7 @@ import Rent from "./Pages/Rent";
 import Buy from "./Pages/Buy";
 import Property from "./Pages/property";
 import Navbar from "./Components/Navbar";
-import Footer from "./Components/Footer";
+import Footer from "./Components/Footer/Footer";
 import PropertyAdd from "./Pages/PropertyAdd";
 
 function App() {

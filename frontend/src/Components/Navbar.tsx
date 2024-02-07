@@ -10,10 +10,10 @@ const activeStyles = "text-primary bg-secondary transition-all duration-300";
 
 export default function Navbar() {
   return (
-    <>
+    <header>
       <DesktopNavbar />
       <MobileNavbar />
-    </>
+    </header>
   );
 }
 
@@ -76,7 +76,7 @@ function DesktopNavbar() {
       </div>
       <div className="flex gap-4">
         <button className="px-6 py-3 font-semibold transition-colors rounded-md bg-secondary text-primary hover:bg-secondaryHover">
-          Login
+          Sign in
         </button>
         <button className="px-6 py-3 font-semibold text-white transition-colors rounded-md bg-primary hover:bg-primaryHover">
           Sign up

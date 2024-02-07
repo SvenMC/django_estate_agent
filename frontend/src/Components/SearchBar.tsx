@@ -6,28 +6,20 @@ export default function SearchBar() {
   return (
     <div
       id="SearchBar"
-      className={`sticky top-0 z-50 h-full mb-12 bg-blue-100 shadow-sm`}
+      // className={`sticky top-0 z-50 h-full mb-12 bg-blue-100 shadow-sm`}
     >
-      <div className="flex items-center justify-between min-h-[104px] max-w-screen-xl mx-auto bg-white px-8 rounded-lg shadow-sm">
+      <div className="justify-between hidden max-w-screen-xl px-8 py-5 mx-auto bg-white rounded-lg shadow-sm lg:flex">
         <LocationFilter />
-        <Divider />
         <MoveInFilter />
-        <Divider />
         <PriceFilter />
-        <Divider />
         <PropertyTypeFilter />
-        <Divider />
         <Button>Search</Button>
       </div>
     </div>
   );
 }
 
-const FilterItemStyles = "border-gray-300";
-
-function Divider() {
-  return <div className="w-px h-[48px] border" />;
-}
+const FilterItemStyles = "border-gray-300 h-full";
 
 function LocationFilter() {
   return (
